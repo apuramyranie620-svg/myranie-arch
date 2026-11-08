@@ -1,0 +1,209 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Database System</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fb;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            color: #173b6c;
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
+        h2 {
+            font-size: 18px;
+        }
+
+        p {
+            font-size: 13px;
+        }
+
+        button {
+            background-color: #173b6c;
+            color: white;
+            padding: 9px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 12px;
+        }
+
+        button:hover {
+            background-color: #24538e;
+        }
+
+        input {
+            padding: 9px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .student {
+            background-color: #eef4fb;
+            padding: 8px 12px;
+            margin: 8px 0;
+            border-radius: 6px;
+            line-height: 1.4;
+            font-size: 12px;
+        }
+
+        hr {
+            margin: 20px 0;
+            border: none;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Student Database System</h1>
+    <p>SQLite Database Integration with Flask API</p>
+
+    <hr>
+
+    <h2>Students from Database</h2>
+
+    <button onclick="loadStudents()">Load Students</button>
+
+    <div id="studentList"></div>
+
+    <hr>
+
+    <h2>Search Students by Program</h2>
+
+    <input
+        type="text"
+        id="programInput"
+        placeholder="Enter BSIT or BSCS"
+    >
+
+    <button onclick="loadByProgram()">Search</button>
+
+    <div id="programList"></div>
+
+</div>
+
+<script>
+
+// Load all students
+function loadStudents() {
+
+    fetch('/students')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to load students');
+        }
+        return response.json();
+    })
+    .then(data => {
+
+        let output = '';
+
+        data.forEach(student => {
+
+            output += `
+                <div class="student">
+                    <b>Student ID:</b> ${student.student_id}<br>
+                    <b>Name:</b> ${student.name}<br>
+                    <b>Program:</b> ${student.program}<br>
+                    <b>Year:</b> ${student.year}<br>
+                    <b>Section:</b> ${student.section}
+                </div>
+            `;
+
+        });
+
+        document.getElementById('studentList').innerHTML =
+            output || '<p>No student records found.</p>';
+
+    })
+    .catch(error => {
+
+        document.getElementById('studentList').innerHTML =
+            '<p>Unable to retrieve student records.</p>';
+
+    });
+
+}
+
+
+// Search students by program
+function loadByProgram() {
+
+    const program = document.getElementById('programInput').value.trim();
+
+    if (!program) {
+        document.getElementById('programList').innerHTML =
+            '<p>Please enter a program.</p>';
+        return;
+    }
+
+    fetch('/students/program/' + encodeURIComponent(program))
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to search students');
+        }
+        return response.json();
+    })
+    .then(data => {
+
+        let output = '';
+
+        data.forEach(student => {
+
+            output += `
+                <div class="student">
+                    <b>Student ID:</b> ${student.student_id}<br>
+                    <b>Name:</b> ${student.name}<br>
+                    <b>Program:</b> ${student.program}<br>
+                    <b>Year:</b> ${student.year}<br>
+                    <b>Section:</b> ${student.section}
+                </div>
+            `;
+
+        });
+
+        document.getElementById('programList').innerHTML =
+            output || '<p>No students found.</p>';
+
+    })
+    .catch(error => {
+
+        document.getElementById('programList').innerHTML =
+            '<p>Unable to retrieve records.</p>';
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>
