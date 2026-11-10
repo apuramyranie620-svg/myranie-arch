@@ -1,6 +1,6 @@
 import requests
 
-url = "https://YOUR-URL.onrender.com/student"
+url = "https://myranie-arch.onrender.com"
 
 response = requests.get(url)
 
