@@ -2,265 +2,247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Database System</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Database System</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        html {
-            scroll-behavior: smooth;
-        }
+html {
+    scroll-behavior: smooth;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #FCE4EC, #EDE1F8);
-            margin: 0;
-            padding: 25px;
-            color: #55445F;
-        }
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #FCE4EC, #EDE1F8);
+    margin: 0;
+    padding: 25px;
+    color: #55445F;
+}
 
-        .container {
-            background: white;
-            max-width: 1200px;
-            margin: auto;
-            padding: 30px;
-            border-radius: 18px;
-            box-shadow: 0 5px 20px rgba(130, 90, 150, 0.15);
-        }
+.container {
+    background: white;
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(130,90,150,.15);
+}
 
-        h1, h2, h3 {
-            color: #9665A8;
-        }
+h1, h2, h3 {
+    color: #9665A8;
+}
 
-        h1 {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
+h1 {
+    font-size: 28px;
+}
 
-        h2 {
-            font-size: 21px;
-        }
+.subtitle {
+    color: #987E9F;
+}
 
-        .subtitle {
-            color: #987E9F;
-        }
+hr {
+    border: none;
+    border-top: 1px solid #EAD7EF;
+    margin: 30px 0;
+}
 
-        hr {
-            border: none;
-            border-top: 1px solid #EAD7EF;
-            margin: 30px 0;
-        }
+/* NAVIGATION */
 
-        /* NAVIGATION */
+.navbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    background: #F7EFFA;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 22px 0;
+    position: sticky;
+    top: 10px;
+    z-index: 100;
+}
 
-        .navbar {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            background: #F7EFFA;
-            padding: 15px;
-            border-radius: 12px;
-            margin: 22px 0;
-            position: sticky;
-            top: 10px;
-            z-index: 100;
-            box-shadow: 0 3px 10px rgba(130, 90, 150, 0.10);
-        }
+.navbar a {
+    text-decoration: none;
+    color: #80558F;
+    font-weight: bold;
+    padding: 11px 17px;
+    border-radius: 8px;
+    transition: .3s;
+}
 
-        .navbar a {
-            text-decoration: none;
-            color: #80558F;
-            font-weight: bold;
-            padding: 11px 17px;
-            border-radius: 8px;
-            transition: 0.3s;
-        }
+.navbar a:hover,
+.navbar a.active {
+    background: #B58ACB;
+    color: white;
+}
 
-        .navbar a:hover,
-        .navbar a.active {
-            background: #B58ACB;
-            color: white;
-        }
+.section-box {
+    margin-top: 25px;
+    scroll-margin-top: 100px;
+}
 
-        .section-box {
-            margin-top: 25px;
-            scroll-margin-top: 100px;
-        }
+.form-area, .search-area {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
 
-        .form-area,
-        .search-area {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+.search-area {
+    align-items: center;
+}
 
-        input {
-            padding: 12px;
-            border: 1px solid #DCC4E8;
-            border-radius: 8px;
-            outline: none;
-            margin: 5px 0;
-            flex: 1;
-            min-width: 150px;
-        }
+input {
+    padding: 12px;
+    border: 1px solid #DCC4E8;
+    border-radius: 8px;
+    outline: none;
+    margin: 5px 0;
+    flex: 1;
+    min-width: 150px;
+}
 
-        input:focus {
-            border-color: #B58ACB;
-            box-shadow: 0 0 5px #E8C8F0;
-        }
+input:focus {
+    border-color: #B58ACB;
+    box-shadow: 0 0 5px #E8C8F0;
+}
 
-        button {
-            background: #B58ACB;
-            color: white;
-            border: none;
-            padding: 11px 16px;
-            border-radius: 7px;
-            cursor: pointer;
-            margin: 4px 2px;
-            transition: 0.3s;
-        }
+.search-area input {
+    max-width: 450px;
+}
 
-        button:hover {
-            background: #9665A8;
-        }
+button {
+    background: #B58ACB;
+    color: white;
+    border: none;
+    padding: 11px 16px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin: 4px 2px;
+    transition: .3s;
+}
 
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
+button:hover {
+    background: #9665A8;
+}
 
-        .delete-btn {
-            background: #E58CA8;
-        }
+.delete-btn {
+    background: #E58CA8;
+}
 
-        .delete-btn:hover {
-            background: #CC6F91;
-        }
+.delete-btn:hover {
+    background: #CC6F91;
+}
 
-        .clear-btn {
-            background: #D8B4E2;
-            color: #55445F;
-        }
+.clear-btn {
+    background: #D8B4E2;
+    color: #55445F;
+}
 
-        .save-btn {
-            background: #70A88A;
-        }
+.save-btn {
+    background: #70A88A;
+}
 
-        .save-btn:hover {
-            background: #4D896B;
-        }
+.save-btn:hover {
+    background: #4D896B;
+}
 
-        .table-container {
-            width: 100%;
-            overflow-x: auto;
-        }
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            background: white;
-            min-width: 850px;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: white;
+    min-width: 850px;
+}
 
-        th, td {
-            border: 1px solid #E8D9EC;
-            padding: 12px;
-            text-align: left;
-        }
+th, td {
+    border: 1px solid #E8D9EC;
+    padding: 12px;
+    text-align: left;
+}
 
-        th {
-            background: #B58ACB;
-            color: white;
-        }
+th {
+    background: #B58ACB;
+    color: white;
+}
 
-        tr:nth-child(even) {
-            background: #FFF4F8;
-        }
+tr:nth-child(even) {
+    background: #FFF4F8;
+}
 
-        tr:hover {
-            background: #F3E8F8;
-        }
+tr:hover {
+    background: #F3E8F8;
+}
 
-        .message {
-            margin-top: 12px;
-            color: #9665A8;
-            font-weight: 500;
-        }
+.message {
+    margin-top: 12px;
+    color: #9665A8;
+    font-weight: 500;
+}
 
-        .details {
-            background: #F7EFFA;
-            padding: 18px;
-            border-radius: 10px;
-            margin-top: 18px;
-            border-left: 5px solid #D8B4E2;
-        }
+.details {
+    background: #F7EFFA;
+    padding: 18px;
+    border-radius: 10px;
+    margin-top: 18px;
+    border-left: 5px solid #D8B4E2;
+}
 
-        .details p {
-            line-height: 1.6;
-        }
+.details p {
+    line-height: 1.6;
+}
 
-        .search-area {
-            align-items: center;
-        }
+.footer {
+    text-align: center;
+    margin-top: 35px;
+    padding-top: 20px;
+    border-top: 1px solid #EAD7EF;
+    color: #987E9F;
+    font-size: 13px;
+}
 
-        .search-area input {
-            max-width: 350px;
-        }
+@media(max-width:600px) {
+    body {
+        padding: 10px;
+    }
 
-        .footer {
-            text-align: center;
-            margin-top: 35px;
-            padding-top: 20px;
-            border-top: 1px solid #EAD7EF;
-            color: #987E9F;
-            font-size: 13px;
-        }
+    .container {
+        padding: 18px;
+    }
 
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
+    h1 {
+        font-size: 23px;
+    }
 
-            .container {
-                padding: 18px;
-            }
+    .form-area {
+        flex-direction: column;
+    }
 
-            h1 {
-                font-size: 23px;
-            }
+    input {
+        width: 100%;
+    }
 
-            .form-area {
-                flex-direction: column;
-            }
-
-            input {
-                width: 100%;
-            }
-
-            .navbar {
-                position: static;
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .navbar a {
-                display: block;
-            }
-        }
-    </style>
+    .navbar {
+        position: static;
+        flex-direction: column;
+        text-align: center;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <div class="container" id="home">
-
-    <!-- HEADER -->
 
     <header>
         <h1>Student Database System</h1>
@@ -269,11 +251,12 @@
         </p>
     </header>
 
-    <!-- NAVIGATION BAR -->
+    <!-- NAVIGATION -->
 
     <nav class="navbar">
         <a href="#home" class="active">Home</a>
         <a href="#studentInfo">Student Information</a>
+        <a href="#searchStudents">Search Students</a>
         <a href="#myRecords">My Records</a>
         <a href="#partnerRecords">Partner Records</a>
     </nav>
@@ -287,47 +270,73 @@
         <h2>Student Information</h2>
 
         <div class="form-area">
-
-            <input
-                type="text"
-                id="student_id"
-                placeholder="Student ID"
-            >
-
-            <input
-                type="text"
-                id="name"
-                placeholder="Full Name"
-            >
-
-            <input
-                type="text"
-                id="program"
-                placeholder="Program"
-            >
-
-            <input
-                type="number"
-                id="year"
-                placeholder="Year"
-                min="1"
-            >
-
-            <input
-                type="text"
-                id="section"
-                placeholder="Section"
-            >
-
+            <input type="text" id="student_id" placeholder="Student ID">
+            <input type="text" id="name" placeholder="Full Name">
+            <input type="text" id="program" placeholder="Program">
+            <input type="number" id="year" placeholder="Year" min="1">
+            <input type="text" id="section" placeholder="Section">
         </div>
 
         <button onclick="addStudent()">Add Student</button>
-
         <button onclick="updateStudent()">Update Student</button>
-
         <button class="clear-btn" onclick="clearForm()">Clear</button>
 
         <p id="formMessage" class="message"></p>
+
+    </div>
+
+    <hr>
+
+    <!-- SEARCH STUDENT INFORMATION -->
+
+    <div class="section-box" id="searchStudents">
+
+        <h2>Search Student Information</h2>
+
+        <p class="subtitle">
+            Search using Student ID, Name, Program, or Section.
+        </p>
+
+        <div class="search-area">
+
+            <input
+                type="text"
+                id="studentSearch"
+                placeholder="Enter Student ID, Name, Program, or Section"
+                onkeydown="if(event.key === 'Enter') searchStudentInformation()"
+            >
+
+            <button onclick="searchStudentInformation()">
+                Search Student
+            </button>
+
+            <button class="clear-btn" onclick="clearStudentSearch()">
+                Clear Search
+            </button>
+
+        </div>
+
+        <p id="searchMessage" class="message"></p>
+
+        <div class="table-container">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Program</th>
+                        <th>Year</th>
+                        <th>Section</th>
+                        <th>Source</th>
+                    </tr>
+                </thead>
+
+                <tbody id="searchStudentList"></tbody>
+            </table>
+
+        </div>
 
     </div>
 
@@ -357,7 +366,6 @@
         <div class="table-container">
 
             <table>
-
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -372,7 +380,6 @@
                 </thead>
 
                 <tbody id="studentList"></tbody>
-
             </table>
 
         </div>
@@ -383,7 +390,7 @@
 
     <hr>
 
-    <!-- PARTNER STUDENT RECORDS -->
+    <!-- PARTNER RECORDS -->
 
     <div class="section-box" id="partnerRecords">
 
@@ -402,7 +409,6 @@
         <div class="table-container">
 
             <table>
-
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -416,7 +422,6 @@
                 </thead>
 
                 <tbody id="classmateList"></tbody>
-
             </table>
 
         </div>
@@ -424,8 +429,6 @@
         <div id="remoteDetails" class="details" hidden></div>
 
     </div>
-
-    <!-- FOOTER -->
 
     <div class="footer">
         Student Database System | Flask API and SQLite Integration
@@ -457,27 +460,11 @@ function createCell(value) {
 function normalizeStudent(student) {
     return {
         id: student.id ?? null,
-
         student_id: student.student_id ?? "",
-
-        name:
-            student.name ??
-            student.full_name ??
-            student.student_name ??
-            "",
-
-        program:
-            student.program ??
-            student.course ??
-            "",
-
-        year:
-            student.year ??
-            student.year_level ??
-            "",
-
+        name: student.name ?? student.full_name ?? student.student_name ?? "",
+        program: student.program ?? student.course ?? "",
+        year: student.year ?? student.year_level ?? "",
         section: student.section ?? "",
-
         source: student.source ?? "Local"
     };
 }
@@ -490,7 +477,6 @@ function showDetails(box, student, title) {
 
     const heading = document.createElement("h3");
     heading.textContent = title;
-
     box.appendChild(heading);
 
     const fields = [
@@ -504,15 +490,10 @@ function showDetails(box, student, title) {
     ];
 
     fields.forEach(([label, value]) => {
-
         const p = document.createElement("p");
-
         p.textContent = label + ": " + (value ?? "-");
-
         box.appendChild(p);
-
     });
-
 }
 
 
@@ -521,19 +502,13 @@ function showDetails(box, student, title) {
 // ==========================================
 
 function getFormData() {
-
     return {
         student_id: document.getElementById("student_id").value.trim(),
-
         name: document.getElementById("name").value.trim(),
-
         program: document.getElementById("program").value.trim(),
-
         year: document.getElementById("year").value,
-
         section: document.getElementById("section").value.trim()
     };
-
 }
 
 
@@ -563,9 +538,7 @@ function validateForm(data) {
     }
 
     data.year = Number(data.year);
-
     return true;
-
 }
 
 
@@ -582,15 +555,11 @@ async function addStudent() {
     try {
 
         const response = await fetch("/api/students", {
-
             method: "POST",
-
             headers: {
                 "Content-Type": "application/json"
             },
-
             body: JSON.stringify(data)
-
         });
 
         const result = await response.json();
@@ -603,38 +572,30 @@ async function addStudent() {
             result.message || "Student added successfully.";
 
         clearForm();
-
         await loadStudents();
 
     } catch (error) {
-
         alert(error.message);
-
     }
-
 }
 
 
 // ==========================================
-// STEP 7: RETRIEVE SAVED STUDENT RECORDS
+// LOAD ALL STUDENTS
 // ==========================================
 
 async function loadStudents() {
 
     const list = document.getElementById("studentList");
-
     const message = document.getElementById("myMessage");
 
     try {
 
         const response = await fetch("/api/students");
-
         const students = await response.json();
 
         if (!response.ok) {
-            throw new Error(
-                students.error || "Failed to retrieve student records."
-            );
+            throw new Error(students.error || "Failed to load students.");
         }
 
         if (!Array.isArray(students)) {
@@ -644,22 +605,11 @@ async function loadStudents() {
         const search = document.getElementById("search")
             .value.toLowerCase().trim();
 
-        const filtered = students.filter(student => {
-
-            return (
-
-                String(student.name ?? "")
-                    .toLowerCase().includes(search) ||
-
-                String(student.student_id ?? "")
-                    .toLowerCase().includes(search) ||
-
-                String(student.program ?? "")
-                    .toLowerCase().includes(search)
-
-            );
-
-        });
+        const filtered = students.filter(student => (
+            String(student.name ?? "").toLowerCase().includes(search) ||
+            String(student.student_id ?? "").toLowerCase().includes(search) ||
+            String(student.program ?? "").toLowerCase().includes(search)
+        ));
 
         list.replaceChildren();
 
@@ -675,47 +625,26 @@ async function loadStudents() {
                 student.year,
                 student.section,
                 student.source || "Local"
-            ].forEach(value => {
-
-                row.appendChild(createCell(value));
-
-            });
+            ].forEach(value => row.appendChild(createCell(value)));
 
             const actionCell = document.createElement("td");
 
             const editButton = document.createElement("button");
-
             editButton.textContent = "Edit";
-
             editButton.onclick = () => editStudent(student.id);
 
-
             const deleteButton = document.createElement("button");
-
             deleteButton.textContent = "Delete";
-
             deleteButton.className = "delete-btn";
-
             deleteButton.onclick = () => deleteStudent(student.id);
 
-
             const detailsButton = document.createElement("button");
-
             detailsButton.textContent = "Details";
-
             detailsButton.onclick = () => showLocalDetails(student.id);
 
-
-            actionCell.append(
-                editButton,
-                deleteButton,
-                detailsButton
-            );
-
+            actionCell.append(editButton, deleteButton, detailsButton);
             row.appendChild(actionCell);
-
             list.appendChild(row);
-
         });
 
         message.textContent =
@@ -724,12 +653,94 @@ async function loadStudents() {
     } catch (error) {
 
         console.error("Retrieve Error:", error);
-
         message.textContent = error.message;
-
         list.replaceChildren();
 
     }
+}
+
+
+// ==========================================
+// SEARCH STUDENT INFORMATION
+// ==========================================
+
+async function searchStudentInformation() {
+
+    const searchValue = document
+        .getElementById("studentSearch")
+        .value.trim();
+
+    const list = document.getElementById("searchStudentList");
+    const message = document.getElementById("searchMessage");
+
+    if (!searchValue) {
+        message.textContent = "Please enter a keyword to search.";
+        list.replaceChildren();
+        return;
+    }
+
+    try {
+
+        message.textContent = "Searching student records...";
+        list.replaceChildren();
+
+        const response = await fetch(
+            "/api/search-students?q=" + encodeURIComponent(searchValue)
+        );
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.error || "Search failed.");
+        }
+
+        if (!Array.isArray(result.students)) {
+            throw new Error("Invalid search response.");
+        }
+
+        if (result.students.length === 0) {
+            message.textContent = "No matching student records found.";
+            return;
+        }
+
+        result.students.forEach(student => {
+
+            const row = document.createElement("tr");
+
+            [
+                student.id,
+                student.student_id,
+                student.name,
+                student.program,
+                student.year,
+                student.section,
+                student.source || "Local"
+            ].forEach(value => row.appendChild(createCell(value)));
+
+            list.appendChild(row);
+        });
+
+        message.textContent =
+            result.total + " matching student record(s) found.";
+
+    } catch (error) {
+
+        message.textContent = error.message;
+        console.error("Search Error:", error);
+
+    }
+}
+
+
+// ==========================================
+// CLEAR SEARCH
+// ==========================================
+
+function clearStudentSearch() {
+
+    document.getElementById("studentSearch").value = "";
+    document.getElementById("searchStudentList").replaceChildren();
+    document.getElementById("searchMessage").textContent = "";
 
 }
 
@@ -743,7 +754,6 @@ async function editStudent(id) {
     try {
 
         const response = await fetch("/api/students/" + id);
-
         const student = await response.json();
 
         if (!response.ok) {
@@ -752,20 +762,11 @@ async function editStudent(id) {
 
         selectedId = student.id;
 
-        document.getElementById("student_id").value =
-            student.student_id;
-
-        document.getElementById("name").value =
-            student.name;
-
-        document.getElementById("program").value =
-            student.program;
-
-        document.getElementById("year").value =
-            student.year;
-
-        document.getElementById("section").value =
-            student.section;
+        document.getElementById("student_id").value = student.student_id;
+        document.getElementById("name").value = student.name;
+        document.getElementById("program").value = student.program;
+        document.getElementById("year").value = student.year;
+        document.getElementById("section").value = student.section;
 
         document.getElementById("formMessage").textContent =
             "Editing student: " + student.name;
@@ -775,11 +776,8 @@ async function editStudent(id) {
         });
 
     } catch (error) {
-
         alert(error.message);
-
     }
-
 }
 
 
@@ -790,11 +788,8 @@ async function editStudent(id) {
 async function updateStudent() {
 
     if (selectedId === null) {
-
         alert("Please select a student to edit first.");
-
         return;
-
     }
 
     const data = getFormData();
@@ -803,18 +798,13 @@ async function updateStudent() {
 
     try {
 
-        const response = await fetch(
-            "/api/students/" + selectedId,
-            {
-                method: "PUT",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify(data)
-            }
-        );
+        const response = await fetch("/api/students/" + selectedId, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
 
         const result = await response.json();
 
@@ -826,15 +816,11 @@ async function updateStudent() {
             result.message || "Student updated successfully.";
 
         clearForm();
-
         await loadStudents();
 
     } catch (error) {
-
         alert(error.message);
-
     }
-
 }
 
 
@@ -850,12 +836,9 @@ async function deleteStudent(id) {
 
     try {
 
-        const response = await fetch(
-            "/api/students/" + id,
-            {
-                method: "DELETE"
-            }
-        );
+        const response = await fetch("/api/students/" + id, {
+            method: "DELETE"
+        });
 
         const result = await response.json();
 
@@ -873,11 +856,8 @@ async function deleteStudent(id) {
         await loadStudents();
 
     } catch (error) {
-
         alert(error.message);
-
     }
-
 }
 
 
@@ -888,19 +868,14 @@ async function deleteStudent(id) {
 function clearForm() {
 
     document.getElementById("student_id").value = "";
-
     document.getElementById("name").value = "";
-
     document.getElementById("program").value = "";
-
     document.getElementById("year").value = "";
-
     document.getElementById("section").value = "";
 
     selectedId = null;
 
     document.getElementById("formMessage").textContent = "";
-
 }
 
 
@@ -915,25 +890,17 @@ async function showLocalDetails(id) {
     try {
 
         const response = await fetch("/api/students/" + id);
-
         const student = await response.json();
 
         if (!response.ok) {
             throw new Error(student.error || "Student not found.");
         }
 
-        showDetails(
-            box,
-            student,
-            "My Student Details"
-        );
+        showDetails(box, student, "My Student Details");
 
     } catch (error) {
-
         alert(error.message);
-
     }
-
 }
 
 
@@ -944,25 +911,19 @@ async function showLocalDetails(id) {
 async function loadClassmate() {
 
     const list = document.getElementById("classmateList");
-
     const message = document.getElementById("remoteMessage");
 
     message.textContent = "Connecting to Jasmine's API...";
-
     list.replaceChildren();
-
     remoteStudents = [];
 
     try {
 
         const response = await fetch("/api/classmate/students");
-
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(
-                data.error || "Unable to retrieve partner records."
-            );
+            throw new Error(data.error || "Unable to retrieve partner records.");
         }
 
         if (!Array.isArray(data)) {
@@ -972,17 +933,13 @@ async function loadClassmate() {
         remoteStudents = data;
 
         if (data.length === 0) {
-
             message.textContent = "No partner records found.";
-
             return;
-
         }
 
         data.forEach((student, index) => {
 
             const normalized = normalizeStudent(student);
-
             const row = document.createElement("tr");
 
             [
@@ -992,36 +949,22 @@ async function loadClassmate() {
                 normalized.program,
                 normalized.year,
                 normalized.section
-            ].forEach(value => {
-
-                row.appendChild(createCell(value));
-
-            });
+            ].forEach(value => row.appendChild(createCell(value)));
 
             const actionCell = document.createElement("td");
 
             const detailsButton = document.createElement("button");
-
             detailsButton.textContent = "View Details";
-
             detailsButton.onclick = () => showRemoteDetails(index);
 
-
             const saveButton = document.createElement("button");
-
             saveButton.textContent = "Save to My Database";
-
             saveButton.className = "save-btn";
-
             saveButton.onclick = () => savePartnerRecord(index);
 
-
             actionCell.append(detailsButton, saveButton);
-
             row.appendChild(actionCell);
-
             list.appendChild(row);
-
         });
 
         message.textContent =
@@ -1030,18 +973,15 @@ async function loadClassmate() {
     } catch (error) {
 
         message.textContent = "Failed to fetch: " + error.message;
-
         list.replaceChildren();
-
         console.error("Partner API Error:", error);
 
     }
-
 }
 
 
 // ==========================================
-// VIEW PARTNER STUDENT DETAILS
+// VIEW PARTNER DETAILS
 // ==========================================
 
 function showRemoteDetails(index) {
@@ -1049,26 +989,20 @@ function showRemoteDetails(index) {
     const student = remoteStudents[index];
 
     if (!student) {
-
-        alert("Student record not found.");
-
+        alert("Partner student record not found.");
         return;
-
     }
 
-    const box = document.getElementById("remoteDetails");
-
     showDetails(
-        box,
+        document.getElementById("remoteDetails"),
         normalizeStudent(student),
         "Partner Student Details"
     );
-
 }
 
 
 // ==========================================
-// SAVE PARTNER RECORD TO MY DATABASE
+// SAVE PARTNER RECORD
 // ==========================================
 
 async function savePartnerRecord(index) {
@@ -1076,11 +1010,8 @@ async function savePartnerRecord(index) {
     const student = remoteStudents[index];
 
     if (!student) {
-
         alert("Partner student record not found.");
-
         return;
-
     }
 
     const record = normalizeStudent(student);
@@ -1092,45 +1023,30 @@ async function savePartnerRecord(index) {
         !record.year ||
         !record.section
     ) {
-
         alert("This partner record has incomplete information.");
-
         return;
-
     }
 
     try {
 
         const response = await fetch("/save-partner-record", {
-
             method: "POST",
-
             headers: {
                 "Content-Type": "application/json"
             },
-
             body: JSON.stringify({
-
                 student_id: record.student_id,
-
                 name: record.name,
-
                 program: record.program,
-
                 year: Number(record.year),
-
                 section: record.section
-
             })
-
         });
 
         const result = await response.json();
 
         if (!response.ok) {
-            throw new Error(
-                result.error || "Unable to save partner record."
-            );
+            throw new Error(result.error || "Unable to save partner record.");
         }
 
         alert(result.message || "Partner record saved successfully.");
@@ -1138,11 +1054,8 @@ async function savePartnerRecord(index) {
         await loadStudents();
 
     } catch (error) {
-
         alert("Unable to save partner record: " + error.message);
-
     }
-
 }
 
 

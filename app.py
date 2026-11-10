@@ -12,8 +12,6 @@ app = Flask(__name__)
 # ==========================================
 
 DATABASE = os.path.join(app.root_path, "students.db")
-
-# Partner's deployed API endpoint
 PARTNER_API = "https://jasminerose-2.onrender.com/api/students"
 
 
@@ -42,10 +40,11 @@ def initialize_database():
         )
     """)
 
-    # Add source column if using an older database
     columns = [
         row["name"]
-        for row in conn.execute("PRAGMA table_info(students)").fetchall()
+        for row in conn.execute(
+            "PRAGMA table_info(students)"
+        ).fetchall()
     ]
 
     if "source" not in columns:
@@ -54,7 +53,6 @@ def initialize_database():
             ADD COLUMN source TEXT DEFAULT 'Local'
         """)
 
-    # Insert sample records only when the database is empty
     count = conn.execute(
         "SELECT COUNT(*) FROM students"
     ).fetchone()[0]
@@ -146,7 +144,41 @@ def get_students():
 
 
 # ==========================================
-# GET STUDENT BY ID
+# SEARCH STUDENT INFORMATION
+# ==========================================
+
+@app.route("/api/search-students", methods=["GET"])
+def search_students():
+    search = request.args.get("q", "").strip()
+
+    if not search:
+        return jsonify({
+            "error": "Please enter a search keyword"
+        }), 400
+
+    conn = get_db_connection()
+    keyword = f"%{search}%"
+
+    students = conn.execute("""
+        SELECT * FROM students
+        WHERE student_id LIKE ?
+           OR name LIKE ?
+           OR program LIKE ?
+           OR section LIKE ?
+        ORDER BY name ASC
+    """, (keyword, keyword, keyword, keyword)).fetchall()
+
+    conn.close()
+
+    return jsonify({
+        "message": "Search completed successfully",
+        "total": len(students),
+        "students": [dict(student) for student in students]
+    })
+
+
+# ==========================================
+# GET STUDENT BY DATABASE ID
 # ==========================================
 
 @app.route("/students/<int:student_id>", methods=["GET"])
@@ -203,15 +235,13 @@ def add_student():
     name = str(
         data.get("name", data.get("student_name", ""))
     ).strip()
-
     program = str(
         data.get("program", data.get("course", ""))
     ).strip()
-
     year = data.get("year", data.get("year_level"))
     section = str(data.get("section", "")).strip()
 
-    # STEP 8: Label externally received records
+    # Step 8: Identify externally received records
     source = str(data.get("source", "External API")).strip()
 
     if not all([student_id, name, program, section]) or year is None:
@@ -221,9 +251,11 @@ def add_student():
 
     try:
         year = int(year)
+        if year < 1:
+            raise ValueError
     except (ValueError, TypeError):
         return jsonify({
-            "error": "Year must be a valid number"
+            "error": "Year must be a valid positive number"
         }), 400
 
     if not source:
@@ -237,12 +269,7 @@ def add_student():
             (student_id, name, program, year, section, source)
             VALUES (?, ?, ?, ?, ?, ?)
         """, (
-            student_id,
-            name,
-            program,
-            year,
-            section,
-            source
+            student_id, name, program, year, section, source
         ))
 
         conn.commit()
@@ -312,6 +339,8 @@ def update_student(student_id):
 
     try:
         year = int(year)
+        if year < 1:
+            raise ValueError
     except (ValueError, TypeError):
         return jsonify({"error": "Invalid year"}), 400
 
@@ -366,9 +395,10 @@ def delete_student(student_id):
     """, (student_id,))
 
     conn.commit()
+    deleted = cursor.rowcount
     conn.close()
 
-    if cursor.rowcount == 0:
+    if deleted == 0:
         return jsonify({"error": "Student not found"}), 404
 
     return jsonify({
@@ -389,7 +419,6 @@ def get_partner_records():
 
         partner_data = response.json()
 
-        # Accept either a direct list or a dictionary containing students
         if isinstance(partner_data, dict):
             partner_data = partner_data.get("students", [])
 
@@ -428,11 +457,9 @@ def save_partner_record():
     name = str(
         data.get("name", data.get("student_name", ""))
     ).strip()
-
     program = str(
         data.get("program", data.get("course", ""))
     ).strip()
-
     year = data.get("year", data.get("year_level"))
     section = str(data.get("section", "")).strip()
 
@@ -443,6 +470,8 @@ def save_partner_record():
 
     try:
         year = int(year)
+        if year < 1:
+            raise ValueError
     except (ValueError, TypeError):
         return jsonify({"error": "Invalid year"}), 400
 
