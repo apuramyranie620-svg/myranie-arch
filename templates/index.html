@@ -2,303 +2,245 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Database System</title>
 
-<title>Student Database System</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-<style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #FCE4EC, #EDE1F8);
+            margin: 0;
+            padding: 25px;
+            color: #55445F;
+        }
 
-/* GENERAL DESIGN */
+        .container {
+            background: white;
+            max-width: 1150px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(130, 90, 150, 0.15);
+        }
 
-* {
-    box-sizing: border-box;
-}
+        h1, h2, h3 {
+            color: #9665A8;
+        }
 
-body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #FCE4EC, #EDE1F8);
-    margin: 0;
-    padding: 25px;
-    color: #55445F;
-}
+        h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
 
-.container {
-    background: white;
-    max-width: 1150px;
-    margin: auto;
-    padding: 30px;
-    border-radius: 18px;
-    box-shadow: 0 5px 20px rgba(130, 90, 150, 0.15);
-}
+        h2 {
+            font-size: 21px;
+        }
 
-h1 {
-    color: #9665A8;
-    font-size: 28px;
-    margin-bottom: 8px;
-}
+        .subtitle {
+            color: #987E9F;
+        }
 
-h2 {
-    color: #9665A8;
-    font-size: 21px;
-}
+        hr {
+            border: none;
+            border-top: 1px solid #EAD7EF;
+            margin: 30px 0;
+        }
 
-h3 {
-    color: #9665A8;
-}
+        .section-box {
+            margin-top: 25px;
+        }
 
-.subtitle {
-    color: #987E9F;
-}
+        .form-area, .search-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
-hr {
-    border: none;
-    border-top: 1px solid #EAD7EF;
-    margin: 30px 0;
-}
+        input {
+            padding: 12px;
+            border: 1px solid #DCC4E8;
+            border-radius: 8px;
+            outline: none;
+            margin: 5px 0;
+            flex: 1;
+            min-width: 150px;
+        }
 
-.section-box {
-    margin-top: 25px;
-}
+        input:focus {
+            border-color: #B58ACB;
+            box-shadow: 0 0 5px #E8C8F0;
+        }
 
-/* INPUTS */
+        button {
+            background: #B58ACB;
+            color: white;
+            border: none;
+            padding: 11px 16px;
+            border-radius: 7px;
+            cursor: pointer;
+            margin: 4px 2px;
+            transition: 0.3s;
+        }
 
-.form-area {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
+        button:hover {
+            background: #9665A8;
+        }
 
-input {
-    padding: 12px;
-    border: 1px solid #DCC4E8;
-    border-radius: 8px;
-    outline: none;
-    margin: 5px 0;
-    flex: 1;
-    min-width: 150px;
-}
+        .delete-btn {
+            background: #E58CA8;
+        }
 
-input:focus {
-    border-color: #B58ACB;
-    box-shadow: 0 0 5px #E8C8F0;
-}
+        .delete-btn:hover {
+            background: #CC6F91;
+        }
 
-/* BUTTONS */
+        .clear-btn {
+            background: #D8B4E2;
+            color: #55445F;
+        }
 
-button {
-    background: #B58ACB;
-    color: white;
-    border: none;
-    padding: 11px 16px;
-    border-radius: 7px;
-    cursor: pointer;
-    margin: 4px 2px;
-    transition: 0.3s;
-}
+        .save-btn {
+            background: #70A88A;
+        }
 
-button:hover {
-    background: #9665A8;
-}
+        .save-btn:hover {
+            background: #4D896B;
+        }
 
-.delete-btn {
-    background: #E58CA8;
-}
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
 
-.delete-btn:hover {
-    background: #CC6F91;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: white;
+            min-width: 700px;
+        }
 
-.clear-btn {
-    background: #D8B4E2;
-    color: #55445F;
-}
+        th, td {
+            border: 1px solid #E8D9EC;
+            padding: 12px;
+            text-align: left;
+        }
 
-/* TABLES */
+        th {
+            background: #B58ACB;
+            color: white;
+        }
 
-.table-container {
-    width: 100%;
-    overflow-x: auto;
-}
+        tr:nth-child(even) {
+            background: #FFF4F8;
+        }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-    background: white;
-    min-width: 700px;
-}
+        tr:hover {
+            background: #F3E8F8;
+        }
 
-th, td {
-    border: 1px solid #E8D9EC;
-    padding: 12px;
-    text-align: left;
-}
+        .message {
+            margin-top: 12px;
+            color: #9665A8;
+            font-weight: 500;
+        }
 
-th {
-    background: #B58ACB;
-    color: white;
-}
+        .details {
+            background: #F7EFFA;
+            padding: 18px;
+            border-radius: 10px;
+            margin-top: 18px;
+            border-left: 5px solid #D8B4E2;
+        }
 
-tr:nth-child(even) {
-    background: #FFF4F8;
-}
+        .details p {
+            line-height: 1.6;
+        }
 
-tr:hover {
-    background: #F3E8F8;
-}
+        .search-area {
+            align-items: center;
+        }
 
-/* MESSAGES */
+        .search-area input {
+            max-width: 350px;
+        }
 
-.message {
-    margin-top: 12px;
-    color: #9665A8;
-    font-weight: 500;
-}
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
 
-/* DETAILS */
+            .container {
+                padding: 18px;
+            }
 
-.details {
-    background: #F7EFFA;
-    padding: 18px;
-    border-radius: 10px;
-    margin-top: 18px;
-    border-left: 5px solid #D8B4E2;
-}
+            h1 {
+                font-size: 23px;
+            }
 
-.details p {
-    line-height: 1.6;
-}
+            .form-area {
+                flex-direction: column;
+            }
 
-/* SEARCH */
-
-.search-area {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-}
-
-.search-area input {
-    max-width: 350px;
-}
-
-/* RESPONSIVE */
-
-@media (max-width: 600px) {
-
-    body {
-        padding: 10px;
-    }
-
-    .container {
-        padding: 18px;
-    }
-
-    h1 {
-        font-size: 23px;
-    }
-
-    .form-area {
-        flex-direction: column;
-    }
-
-    input {
-        width: 100%;
-    }
-}
-
-</style>
+            input {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
 <div class="container">
 
     <h1>Student Database System</h1>
-
-    <p class="subtitle">
-        SQLite Database Integration with Flask API
-    </p>
+    <p class="subtitle">SQLite Database Integration with Flask API</p>
 
     <hr>
 
     <!-- STUDENT INFORMATION -->
-
     <div class="section-box">
-
         <h2>Student Information</h2>
 
         <div class="form-area">
-
-            <input type="text"
-                   id="student_id"
-                   placeholder="Student ID">
-
-            <input type="text"
-                   id="name"
-                   placeholder="Full Name">
-
-            <input type="text"
-                   id="program"
-                   placeholder="Program">
-
-            <input type="number"
-                   id="year"
-                   placeholder="Year"
-                   min="1">
-
-            <input type="text"
-                   id="section"
-                   placeholder="Section">
-
+            <input type="text" id="student_id" placeholder="Student ID">
+            <input type="text" id="name" placeholder="Full Name">
+            <input type="text" id="program" placeholder="Program">
+            <input type="number" id="year" placeholder="Year" min="1">
+            <input type="text" id="section" placeholder="Section">
         </div>
 
-        <button onclick="addStudent()">
-            Add Student
-        </button>
-
-        <button onclick="updateStudent()">
-            Update Student
-        </button>
-
-        <button class="clear-btn" onclick="clearForm()">
-            Clear
-        </button>
+        <button onclick="addStudent()">Add Student</button>
+        <button onclick="updateStudent()">Update Student</button>
+        <button class="clear-btn" onclick="clearForm()">Clear</button>
 
         <p id="formMessage" class="message"></p>
-
     </div>
 
     <hr>
 
     <!-- MY RECORDS -->
-
     <div class="section-box">
-
         <h2>My Records</h2>
 
         <div class="search-area">
-
             <input
                 type="text"
                 id="search"
                 placeholder="Search student name or ID"
                 oninput="loadStudents()"
             >
-
-            <button onclick="loadStudents()">
-                Load Students
-            </button>
-
+            <button onclick="loadStudents()">Load Students</button>
         </div>
 
         <p id="myMessage" class="message"></p>
 
         <div class="table-container">
-
             <table>
-
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -310,39 +252,29 @@ tr:hover {
                         <th>Actions</th>
                     </tr>
                 </thead>
-
                 <tbody id="studentList"></tbody>
-
             </table>
-
         </div>
 
         <div id="localDetails" class="details" hidden></div>
-
     </div>
 
     <hr>
 
-    <!-- CLASSMATE RECORDS -->
-
+    <!-- PARTNER STUDENT RECORDS -->
     <div class="section-box">
-
-        <h2>Classmate's Records</h2>
+        <h2>Partner Student Records</h2>
 
         <p class="subtitle">
             Source: Jasmine Rose's Public API
         </p>
 
-        <button onclick="loadClassmate()">
-            Load Classmate Records
-        </button>
+        <button onclick="loadClassmate()">Load Partner Records</button>
 
         <p id="remoteMessage" class="message"></p>
 
         <div class="table-container">
-
             <table>
-
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -351,25 +283,19 @@ tr:hover {
                         <th>Program</th>
                         <th>Year</th>
                         <th>Section</th>
-                        <th>Action</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
-
                 <tbody id="classmateList"></tbody>
-
             </table>
-
         </div>
 
         <div id="remoteDetails" class="details" hidden></div>
-
     </div>
 
 </div>
 
-
 <script>
-
 // ==========================================
 // GLOBAL VARIABLES
 // ==========================================
@@ -383,24 +309,28 @@ let remoteStudents = [];
 // ==========================================
 
 function createCell(value) {
-
     const cell = document.createElement("td");
-
     cell.textContent = value ?? "-";
-
     return cell;
 }
 
+function normalizeStudent(student) {
+    return {
+        id: student.id ?? null,
+        student_id: student.student_id ?? "",
+        name: student.name ?? student.full_name ?? "",
+        program: student.program ?? student.course ?? "",
+        year: student.year ?? student.year_level ?? "",
+        section: student.section ?? ""
+    };
+}
 
 function showDetails(box, student, title) {
-
     box.hidden = false;
     box.replaceChildren();
 
     const heading = document.createElement("h3");
-
     heading.textContent = title;
-
     box.appendChild(heading);
 
     const fields = [
@@ -413,15 +343,10 @@ function showDetails(box, student, title) {
     ];
 
     fields.forEach(([label, value]) => {
-
         const p = document.createElement("p");
-
         p.textContent = label + ": " + (value ?? "-");
-
         box.appendChild(p);
-
     });
-
 }
 
 
@@ -430,7 +355,6 @@ function showDetails(box, student, title) {
 // ==========================================
 
 function getFormData() {
-
     return {
         student_id: document.getElementById("student_id").value.trim(),
         name: document.getElementById("name").value.trim(),
@@ -438,7 +362,6 @@ function getFormData() {
         year: document.getElementById("year").value,
         section: document.getElementById("section").value.trim()
     };
-
 }
 
 
@@ -447,7 +370,6 @@ function getFormData() {
 // ==========================================
 
 function validateForm(data) {
-
     if (
         !data.student_id ||
         !data.name ||
@@ -455,9 +377,7 @@ function validateForm(data) {
         !data.year ||
         !data.section
     ) {
-
         alert("Please complete all student information.");
-
         return false;
     }
 
@@ -465,16 +385,12 @@ function validateForm(data) {
         !Number.isInteger(Number(data.year)) ||
         Number(data.year) < 1
     ) {
-
         alert("Please enter a valid year level.");
-
         return false;
     }
 
     data.year = Number(data.year);
-
     return true;
-
 }
 
 
@@ -483,23 +399,17 @@ function validateForm(data) {
 // ==========================================
 
 async function addStudent() {
-
     const data = getFormData();
 
     if (!validateForm(data)) return;
 
     try {
-
         const response = await fetch("/api/students", {
-
             method: "POST",
-
             headers: {
                 "Content-Type": "application/json"
             },
-
             body: JSON.stringify(data)
-
         });
 
         const result = await response.json();
@@ -509,18 +419,14 @@ async function addStudent() {
         }
 
         document.getElementById("formMessage").textContent =
-            result.message;
+            result.message || "Student added successfully.";
 
         clearForm();
-
         await loadStudents();
 
     } catch (error) {
-
         alert(error.message);
-
     }
-
 }
 
 
@@ -529,13 +435,10 @@ async function addStudent() {
 // ==========================================
 
 async function loadStudents() {
-
     const list = document.getElementById("studentList");
-
     const message = document.getElementById("myMessage");
 
     try {
-
         const response = await fetch("/api/students");
 
         if (!response.ok) {
@@ -548,19 +451,16 @@ async function loadStudents() {
             .value.toLowerCase();
 
         const filtered = students.filter(student => {
-
             return (
                 String(student.name).toLowerCase().includes(search) ||
                 String(student.student_id).toLowerCase().includes(search) ||
                 String(student.program).toLowerCase().includes(search)
             );
-
         });
 
         list.replaceChildren();
 
         filtered.forEach(student => {
-
             const row = document.createElement("tr");
 
             [
@@ -571,35 +471,23 @@ async function loadStudents() {
                 student.year,
                 student.section
             ].forEach(value => {
-
                 row.appendChild(createCell(value));
-
             });
 
             const actionCell = document.createElement("td");
 
             const editButton = document.createElement("button");
-
             editButton.textContent = "Edit";
-
             editButton.onclick = () => editStudent(student.id);
 
-
             const deleteButton = document.createElement("button");
-
             deleteButton.textContent = "Delete";
-
             deleteButton.className = "delete-btn";
-
             deleteButton.onclick = () => deleteStudent(student.id);
 
-
             const detailsButton = document.createElement("button");
-
             detailsButton.textContent = "Details";
-
             detailsButton.onclick = () => showLocalDetails(student.id);
-
 
             actionCell.append(
                 editButton,
@@ -608,22 +496,16 @@ async function loadStudents() {
             );
 
             row.appendChild(actionCell);
-
             list.appendChild(row);
-
         });
 
         message.textContent =
             filtered.length + " student record(s) found.";
 
     } catch (error) {
-
         message.textContent = error.message;
-
         list.replaceChildren();
-
     }
-
 }
 
 
@@ -632,11 +514,8 @@ async function loadStudents() {
 // ==========================================
 
 async function editStudent(id) {
-
     try {
-
         const response = await fetch("/api/students/" + id);
-
         const student = await response.json();
 
         if (!response.ok) {
@@ -645,20 +524,11 @@ async function editStudent(id) {
 
         selectedId = student.id;
 
-        document.getElementById("student_id").value =
-            student.student_id;
-
-        document.getElementById("name").value =
-            student.name;
-
-        document.getElementById("program").value =
-            student.program;
-
-        document.getElementById("year").value =
-            student.year;
-
-        document.getElementById("section").value =
-            student.section;
+        document.getElementById("student_id").value = student.student_id;
+        document.getElementById("name").value = student.name;
+        document.getElementById("program").value = student.program;
+        document.getElementById("year").value = student.year;
+        document.getElementById("section").value = student.section;
 
         document.getElementById("formMessage").textContent =
             "Editing student: " + student.name;
@@ -669,11 +539,8 @@ async function editStudent(id) {
         });
 
     } catch (error) {
-
         alert(error.message);
-
     }
-
 }
 
 
@@ -682,11 +549,8 @@ async function editStudent(id) {
 // ==========================================
 
 async function updateStudent() {
-
     if (selectedId === null) {
-
         alert("Please select a student to edit first.");
-
         return;
     }
 
@@ -695,16 +559,13 @@ async function updateStudent() {
     if (!validateForm(data)) return;
 
     try {
-
         const response = await fetch(
             "/api/students/" + selectedId,
             {
                 method: "PUT",
-
                 headers: {
                     "Content-Type": "application/json"
                 },
-
                 body: JSON.stringify(data)
             }
         );
@@ -716,18 +577,14 @@ async function updateStudent() {
         }
 
         document.getElementById("formMessage").textContent =
-            result.message;
+            result.message || "Student updated successfully.";
 
         clearForm();
-
         await loadStudents();
 
     } catch (error) {
-
         alert(error.message);
-
     }
-
 }
 
 
@@ -736,13 +593,11 @@ async function updateStudent() {
 // ==========================================
 
 async function deleteStudent(id) {
-
     if (!confirm("Are you sure you want to delete this student?")) {
         return;
     }
 
     try {
-
         const response = await fetch(
             "/api/students/" + id,
             {
@@ -757,7 +612,7 @@ async function deleteStudent(id) {
         }
 
         document.getElementById("formMessage").textContent =
-            result.message;
+            result.message || "Student deleted successfully.";
 
         if (selectedId === id) {
             clearForm();
@@ -766,11 +621,8 @@ async function deleteStudent(id) {
         await loadStudents();
 
     } catch (error) {
-
         alert(error.message);
-
     }
-
 }
 
 
@@ -779,21 +631,15 @@ async function deleteStudent(id) {
 // ==========================================
 
 function clearForm() {
-
     document.getElementById("student_id").value = "";
-
     document.getElementById("name").value = "";
-
     document.getElementById("program").value = "";
-
     document.getElementById("year").value = "";
-
     document.getElementById("section").value = "";
 
     selectedId = null;
 
     document.getElementById("formMessage").textContent = "";
-
 }
 
 
@@ -802,13 +648,10 @@ function clearForm() {
 // ==========================================
 
 async function showLocalDetails(id) {
-
     const box = document.getElementById("localDetails");
 
     try {
-
         const response = await fetch("/api/students/" + id);
-
         const student = await response.json();
 
         if (!response.ok) {
@@ -818,122 +661,162 @@ async function showLocalDetails(id) {
         showDetails(box, student, "My Student Details");
 
     } catch (error) {
-
         alert(error.message);
-
     }
-
 }
 
 
 // ==========================================
-// LOAD JASMINE'S RECORDS
+// LOAD PARTNER RECORDS
 // ==========================================
 
 async function loadClassmate() {
-
     const list = document.getElementById("classmateList");
-
     const message = document.getElementById("remoteMessage");
 
     message.textContent = "Connecting to Jasmine's API...";
-
     list.replaceChildren();
 
     try {
-
-        // CALL FLASK PROXY
+        // Flask proxy endpoint that retrieves the partner API
         const response = await fetch("/api/classmate/students");
 
         const data = await response.json();
 
         if (!response.ok) {
-            throw new Error(data.error || "Unable to retrieve classmate records.");
+            throw new Error(
+                data.error || "Unable to retrieve partner records."
+            );
         }
 
         if (!Array.isArray(data)) {
-            throw new Error("Invalid classmate API response.");
+            throw new Error("Invalid partner API response.");
         }
 
         remoteStudents = data;
 
         if (data.length === 0) {
-
-            message.textContent = "No classmate records found.";
-
+            message.textContent = "No partner records found.";
             return;
         }
 
         data.forEach((student, index) => {
-
+            const normalized = normalizeStudent(student);
             const row = document.createElement("tr");
 
             [
-                student.id ?? index + 1,
-                student.student_id ?? student.id,
-                student.name ?? student.full_name,
-                student.program ?? student.course,
-                student.year ?? student.year_level,
-                student.section
+                normalized.id ?? index + 1,
+                normalized.student_id,
+                normalized.name,
+                normalized.program,
+                normalized.year,
+                normalized.section
             ].forEach(value => {
-
                 row.appendChild(createCell(value));
-
             });
 
             const actionCell = document.createElement("td");
 
+            // VIEW BUTTON
             const detailsButton = document.createElement("button");
-
             detailsButton.textContent = "View Details";
-
             detailsButton.onclick = () => showRemoteDetails(index);
 
-            actionCell.appendChild(detailsButton);
+            // SAVE BUTTON
+            const saveButton = document.createElement("button");
+            saveButton.textContent = "Save to My Database";
+            saveButton.className = "save-btn";
+            saveButton.onclick = () => savePartnerRecord(index);
+
+            actionCell.append(detailsButton, saveButton);
 
             row.appendChild(actionCell);
-
             list.appendChild(row);
-
         });
 
         message.textContent =
-            data.length + " classmate record(s) retrieved successfully.";
+            data.length + " partner record(s) retrieved successfully.";
 
     } catch (error) {
-
-        message.textContent =
-            "Failed to fetch: " + error.message;
-
+        message.textContent = "Failed to fetch: " + error.message;
         list.replaceChildren();
 
-        console.error("Jasmine API Error:", error);
-
+        console.error("Partner API Error:", error);
     }
-
 }
 
 
 // ==========================================
-// VIEW JASMINE'S STUDENT DETAILS
-// READ ONLY
+// VIEW PARTNER STUDENT DETAILS
 // ==========================================
 
 function showRemoteDetails(index) {
-
     const student = remoteStudents[index];
 
     if (!student) {
-
         alert("Student record not found.");
-
         return;
     }
 
     const box = document.getElementById("remoteDetails");
 
-    showDetails(box, student, "Classmate Student Details");
+    showDetails(
+        box,
+        normalizeStudent(student),
+        "Partner Student Details"
+    );
+}
 
+
+// ==========================================
+// SAVE PARTNER RECORD TO MY DATABASE
+// ==========================================
+
+async function savePartnerRecord(index) {
+    const student = remoteStudents[index];
+
+    if (!student) {
+        alert("Partner student record not found.");
+        return;
+    }
+
+    const record = normalizeStudent(student);
+
+    if (
+        !record.student_id ||
+        !record.name ||
+        !record.program ||
+        !record.year ||
+        !record.section
+    ) {
+        alert("This partner record has incomplete information.");
+        return;
+    }
+
+    try {
+        const response = await fetch("/save-partner-record", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(record)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                result.error || "Unable to save partner record."
+            );
+        }
+
+        alert(result.message || "Partner record saved successfully.");
+
+        await loadStudents();
+
+    } catch (error) {
+        alert("Unable to save partner record: " + error.message);
+    }
 }
 
 
@@ -944,6 +827,5 @@ function showRemoteDetails(index) {
 loadStudents();
 
 </script>
-
 </body>
 </html>
