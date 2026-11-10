@@ -1,17 +1,14 @@
 
 import sqlite3
 import os
-import json
-
-from urllib.request import urlopen
-from urllib.error import URLError, HTTPError
+import requests
 
 from flask import Flask, jsonify, request, render_template
 
 app = Flask(__name__)
 
 # ==========================================
-# DATABASE CONNECTION
+# DATABASE CONFIGURATION
 # ==========================================
 
 DATABASE = os.path.join(app.root_path, 'students.db')
@@ -38,10 +35,25 @@ def initialize_database():
             name TEXT NOT NULL,
             program TEXT NOT NULL,
             year INTEGER NOT NULL,
-            section TEXT NOT NULL
+            section TEXT NOT NULL,
+            source TEXT DEFAULT 'Local'
         )
     ''')
 
+    # Add source column if it does not exist
+    columns = [
+        row['name']
+        for row in conn.execute(
+            "PRAGMA table_info(students)"
+        ).fetchall()
+    ]
+
+    if 'source' not in columns:
+        conn.execute(
+            "ALTER TABLE students ADD COLUMN source TEXT DEFAULT 'Local'"
+        )
+
+    # Insert sample records if database is empty
     count = conn.execute(
         'SELECT COUNT(*) FROM students'
     ).fetchone()[0]
@@ -49,17 +61,17 @@ def initialize_database():
     if count == 0:
 
         students = [
-            ('24-00156', 'Myranie Apura', 'BSIT', 3, 'A'),
-            ('24-00102', 'Mark Santos', 'BSIT', 3, 'A'),
-            ('24-00103', 'John Reyes', 'BSIT', 3, 'A'),
-            ('24-00104', 'Sofia Garcia', 'BSIT', 3, 'A'),
-            ('24-00105', 'Daniel Flores', 'BSIT', 3, 'A')
+            ('24-00156', 'Myranie Apura', 'BSIT', 3, 'A', 'Local'),
+            ('24-00102', 'Mark Santos', 'BSIT', 3, 'A', 'Local'),
+            ('24-00103', 'John Reyes', 'BSIT', 3, 'A', 'Local'),
+            ('24-00104', 'Sofia Garcia', 'BSIT', 3, 'A', 'Local'),
+            ('24-00105', 'Daniel Flores', 'BSIT', 3, 'A', 'Local')
         ]
 
         conn.executemany('''
             INSERT INTO students
-            (student_id, name, program, year, section)
-            VALUES (?, ?, ?, ?, ?)
+            (student_id, name, program, year, section, source)
+            VALUES (?, ?, ?, ?, ?, ?)
         ''', students)
 
     conn.commit()
@@ -84,9 +96,9 @@ def get_student():
 
     return jsonify({
         "student_id": "2026-00123",
-        "name": "Your Name",
+        "name": "Myranie Apura",
         "program": "BSIT",
-        "year": 1,
+        "year": 3,
         "section": "A"
     })
 
@@ -106,7 +118,7 @@ def say_hello():
 
 
 # ==========================================
-# ACTIVITY 6: CUSTOM SCHOOL API
+# ACTIVITY 6: SCHOOL API
 # ==========================================
 
 @app.route('/school')
@@ -224,22 +236,22 @@ def add_student():
             "error": "Year must be a positive number"
         }), 400
 
+    source = data.get('source', 'External API')
+
     conn = get_db_connection()
 
-    cursor = conn.execute(
-        '''
+    cursor = conn.execute('''
         INSERT INTO students
-        (student_id, name, program, year, section)
-        VALUES (?, ?, ?, ?, ?)
-        ''',
-        (
-            data['student_id'].strip(),
-            data['name'].strip(),
-            data['program'].strip(),
-            year,
-            data['section'].strip().upper()
-        )
-    )
+        (student_id, name, program, year, section, source)
+        VALUES (?, ?, ?, ?, ?, ?)
+    ''', (
+        data['student_id'].strip(),
+        data['name'].strip(),
+        data['program'].strip(),
+        year,
+        data['section'].strip().upper(),
+        source
+    ))
 
     new_id = cursor.lastrowid
 
@@ -319,8 +331,7 @@ def update_student(id):
 
     conn = get_db_connection()
 
-    cursor = conn.execute(
-        '''
+    cursor = conn.execute('''
         UPDATE students
         SET student_id = ?,
             name = ?,
@@ -328,16 +339,14 @@ def update_student(id):
             year = ?,
             section = ?
         WHERE id = ?
-        ''',
-        (
-            data['student_id'].strip(),
-            data['name'].strip(),
-            data['program'].strip(),
-            year,
-            data['section'].strip().upper(),
-            id
-        )
-    )
+    ''', (
+        data['student_id'].strip(),
+        data['name'].strip(),
+        data['program'].strip(),
+        year,
+        data['section'].strip().upper(),
+        id
+    ))
 
     updated = cursor.rowcount
 
@@ -384,45 +393,42 @@ def delete_student(id):
 
 
 # ==========================================
-# CLASSMATE API: JASMINE ROSE
-# READ ONLY - DO NOT MODIFY REMOTE RECORDS
+# ACTIVITY 9: PARTNER API
+# RETRIEVE CLASSMATE RECORDS
 # ==========================================
 
-CLASSMATE_API = (
-    "https://jasminerose-2.onrender.com/api/students"
-)
+PARTNER_API = "https://jasminerose-2.onrender.com/api/students"
 
 
+@app.route('/partner-records', methods=['GET'])
 @app.route('/api/classmate/students', methods=['GET'])
-def get_classmate_students():
+def partner_records():
 
     try:
+        response = requests.get(
+            PARTNER_API,
+            timeout=15
+        )
 
-        with urlopen(CLASSMATE_API, timeout=60) as response:
+        response.raise_for_status()
 
-            data = json.loads(
-                response.read().decode('utf-8')
-            )
+        data = response.json()
 
-            if not isinstance(data, list):
-                return jsonify({
-                    "error": "Invalid classmate API response"
-                }), 502
+        if not isinstance(data, list):
+            return jsonify({
+                "error": "Invalid partner API response"
+            }), 502
 
-            return jsonify(data)
+        return jsonify(data)
 
-    except HTTPError as error:
-
+    except requests.RequestException:
         return jsonify({
-            "error": "Classmate API returned an HTTP error",
-            "details": str(error.code)
+            "error": "Unable to retrieve partner data"
         }), 502
 
-    except (URLError, TimeoutError, ValueError) as error:
-
+    except ValueError:
         return jsonify({
-            "error": "Unable to retrieve classmate records",
-            "details": str(error)
+            "error": "Invalid partner API response"
         }), 502
 
 
@@ -442,5 +448,5 @@ if __name__ == '__main__':
     app.run(
         host='0.0.0.0',
         port=int(os.environ.get('PORT', 5000)),
-        debug=True
+        debug=False
     )
