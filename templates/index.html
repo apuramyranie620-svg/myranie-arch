@@ -21,7 +21,7 @@
 
         .container {
             background: white;
-            max-width: 1150px;
+            max-width: 1200px;
             margin: auto;
             padding: 30px;
             border-radius: 18px;
@@ -122,7 +122,7 @@
             border-collapse: collapse;
             margin-top: 15px;
             background: white;
-            min-width: 700px;
+            min-width: 850px;
         }
 
         th, td {
@@ -249,6 +249,7 @@
                         <th>Program</th>
                         <th>Year</th>
                         <th>Section</th>
+                        <th>Source</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -318,10 +319,11 @@ function normalizeStudent(student) {
     return {
         id: student.id ?? null,
         student_id: student.student_id ?? "",
-        name: student.name ?? student.full_name ?? "",
+        name: student.name ?? student.full_name ?? student.student_name ?? "",
         program: student.program ?? student.course ?? "",
         year: student.year ?? student.year_level ?? "",
-        section: student.section ?? ""
+        section: student.section ?? "",
+        source: student.source ?? "Local"
     };
 }
 
@@ -339,7 +341,8 @@ function showDetails(box, student, title) {
         ["Name", student.name],
         ["Program", student.program],
         ["Year", student.year],
-        ["Section", student.section]
+        ["Section", student.section],
+        ["Source", student.source]
     ];
 
     fields.forEach(([label, value]) => {
@@ -431,7 +434,7 @@ async function addStudent() {
 
 
 // ==========================================
-// LOAD MY STUDENTS
+// STEP 7: RETRIEVE SAVED STUDENT RECORDS
 // ==========================================
 
 async function loadStudents() {
@@ -440,21 +443,26 @@ async function loadStudents() {
 
     try {
         const response = await fetch("/api/students");
-
-        if (!response.ok) {
-            throw new Error("Unable to retrieve student records.");
-        }
-
         const students = await response.json();
 
+        if (!response.ok) {
+            throw new Error(
+                students.error || "Failed to retrieve student records."
+            );
+        }
+
+        if (!Array.isArray(students)) {
+            throw new Error("Invalid student records response.");
+        }
+
         const search = document.getElementById("search")
-            .value.toLowerCase();
+            .value.toLowerCase().trim();
 
         const filtered = students.filter(student => {
             return (
-                String(student.name).toLowerCase().includes(search) ||
-                String(student.student_id).toLowerCase().includes(search) ||
-                String(student.program).toLowerCase().includes(search)
+                String(student.name ?? "").toLowerCase().includes(search) ||
+                String(student.student_id ?? "").toLowerCase().includes(search) ||
+                String(student.program ?? "").toLowerCase().includes(search)
             );
         });
 
@@ -469,7 +477,8 @@ async function loadStudents() {
                 student.name,
                 student.program,
                 student.year,
-                student.section
+                student.section,
+                student.source || "Local"
             ].forEach(value => {
                 row.appendChild(createCell(value));
             });
@@ -503,6 +512,7 @@ async function loadStudents() {
             filtered.length + " student record(s) found.";
 
     } catch (error) {
+        console.error("Retrieve Error:", error);
         message.textContent = error.message;
         list.replaceChildren();
     }
@@ -676,11 +686,10 @@ async function loadClassmate() {
 
     message.textContent = "Connecting to Jasmine's API...";
     list.replaceChildren();
+    remoteStudents = [];
 
     try {
-        // Flask proxy endpoint that retrieves the partner API
         const response = await fetch("/api/classmate/students");
-
         const data = await response.json();
 
         if (!response.ok) {
@@ -717,19 +726,16 @@ async function loadClassmate() {
 
             const actionCell = document.createElement("td");
 
-            // VIEW BUTTON
             const detailsButton = document.createElement("button");
             detailsButton.textContent = "View Details";
             detailsButton.onclick = () => showRemoteDetails(index);
 
-            // SAVE BUTTON
             const saveButton = document.createElement("button");
             saveButton.textContent = "Save to My Database";
             saveButton.className = "save-btn";
             saveButton.onclick = () => savePartnerRecord(index);
 
             actionCell.append(detailsButton, saveButton);
-
             row.appendChild(actionCell);
             list.appendChild(row);
         });
@@ -799,7 +805,13 @@ async function savePartnerRecord(index) {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(record)
+            body: JSON.stringify({
+                student_id: record.student_id,
+                name: record.name,
+                program: record.program,
+                year: Number(record.year),
+                section: record.section
+            })
         });
 
         const result = await response.json();
