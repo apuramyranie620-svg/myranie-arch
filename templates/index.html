@@ -4,7 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Student Database System | Myranie Apura</title>
 
 <style>
@@ -23,7 +22,6 @@ body {
     color: #51445b;
 }
 
-/* HEADER */
 header {
     background: linear-gradient(135deg, #c9a5e8, #f2b8d5);
     color: white;
@@ -34,7 +32,6 @@ header h1 {
     margin: 0 0 8px;
 }
 
-/* NAVIGATION */
 nav {
     background: #fff8fc;
     padding: 17px 5%;
@@ -57,7 +54,6 @@ nav a:hover {
     color: #d47cae;
 }
 
-/* MAIN CONTAINER */
 .container {
     width: 95%;
     max-width: 1450px;
@@ -78,7 +74,6 @@ h2 {
     margin-top: 0;
 }
 
-/* STUDENT MANAGEMENT */
 .student-management h2 {
     font-size: 30px;
     margin-bottom: 20px;
@@ -130,7 +125,6 @@ h2 {
     margin-top: 22px;
 }
 
-/* BUTTONS */
 button {
     border: none;
     padding: 12px 18px;
@@ -159,17 +153,9 @@ button:disabled {
     padding: 14px 22px;
 }
 
-.add-student-btn:hover {
-    background: #9f70c2;
-}
-
 .clear-form-btn {
     background: #e9a9c9;
     padding: 14px 22px;
-}
-
-.clear-form-btn:hover {
-    background: #d98bb4;
 }
 
 .view {
@@ -188,7 +174,6 @@ button:disabled {
     background: #b58bd4;
 }
 
-/* SEARCH INPUT */
 .search-input {
     width: 100%;
     padding: 14px;
@@ -206,7 +191,6 @@ button:disabled {
     box-shadow: 0 0 0 3px rgba(189,145,216,.15);
 }
 
-/* TABLES */
 .table-wrapper {
     width: 100%;
     overflow-x: auto;
@@ -238,7 +222,6 @@ tr:hover {
     background: #fcf0f8;
 }
 
-/* MESSAGES */
 .message {
     color: #a36cbd;
     font-weight: bold;
@@ -250,7 +233,6 @@ tr:hover {
     color: #d77e9f;
 }
 
-/* NOTIFICATIONS */
 .toast-notification {
     position: fixed;
     top: 25px;
@@ -285,13 +267,13 @@ tr:hover {
         opacity: 0;
         transform: translateX(50px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
     }
 }
 
-/* FOOTER */
 footer {
     background: #fff5fa;
     padding: 20px;
@@ -301,13 +283,11 @@ footer {
     border-top: 1px solid #f0dced;
 }
 
-/* DIVIDER */
 hr {
     border: none;
     border-top: 1px solid #f0dced;
 }
 
-/* RESPONSIVE */
 @media(max-width: 700px) {
     .student-form-grid {
         grid-template-columns: 1fr;
@@ -354,7 +334,6 @@ hr {
 <header id="home">
     <h1>Student Database System</h1>
     <p>Student Information Management and System Integration</p>
-    <p>Developed by: Myranie Apura | BSIT 3A</p>
 </header>
 
 <!-- NAVIGATION -->
@@ -453,21 +432,29 @@ hr {
 
     </section>
 
+
     <!-- SEARCH STUDENTS -->
     <section id="searchStudents" class="card">
 
         <h2>Search Students</h2>
 
-        <p>Search student records by ID, name, program, or section.</p>
+        <p>
+            Search student records by ID, name, program, year, or section.
+        </p>
 
-        <input type="text"
-               id="studentSearch"
-               class="search-input"
-               placeholder="Search students..."
-               oninput="searchStudentInformation()">
+        <input
+            type="text"
+            id="studentSearch"
+            class="search-input"
+            placeholder="Search students by ID, Name, Program, or Section..."
+            oninput="searchStudentInformation()"
+            autocomplete="off"
+        >
 
         <div class="table-wrapper">
+
             <table>
+
                 <thead>
                     <tr>
                         <th>Student ID</th>
@@ -481,13 +468,18 @@ hr {
 
                 <tbody id="searchStudentList">
                     <tr>
-                        <td colspan="6">Loading records...</td>
+                        <td colspan="6">
+                            Enter a keyword above to search students.
+                        </td>
                     </tr>
                 </tbody>
+
             </table>
+
         </div>
 
     </section>
+
 
     <!-- MY RECORDS -->
     <section id="myRecords" class="card">
@@ -503,7 +495,9 @@ hr {
         <p id="myMessage" class="message"></p>
 
         <div class="table-wrapper">
+
             <table>
+
                 <thead>
                     <tr>
                         <th>Student ID</th>
@@ -521,7 +515,9 @@ hr {
                         <td colspan="7">Loading records...</td>
                     </tr>
                 </tbody>
+
             </table>
+
         </div>
 
         <hr style="margin: 35px 0;">
@@ -547,7 +543,9 @@ hr {
         <p id="sendMessage" class="message"></p>
 
         <div class="table-wrapper">
+
             <table>
+
                 <thead>
                     <tr>
                         <th>Student ID</th>
@@ -566,19 +564,21 @@ hr {
                         </td>
                     </tr>
                 </tbody>
+
             </table>
+
         </div>
 
     </section>
 
 </div>
 
+
 <!-- FOOTER -->
 <footer>
     <p>Student Database System</p>
-    <p>Laboratory Activity 9 - System-to-System Integration</p>
-    <p>Developed by Myranie Apura</p>
 </footer>
+
 
 <script>
 
@@ -899,7 +899,7 @@ async function loadStudents() {
 
 
 // ==========================================
-// SEARCH STUDENTS
+// SEARCH STUDENTS - UPDATED VERSION
 // ==========================================
 
 function searchStudentInformation() {
@@ -911,28 +911,14 @@ function searchStudentInformation() {
 
     tbody.replaceChildren();
 
-    const filtered = allStudents.filter(student => {
-
-        return [
-
-            student.student_id,
-            student.name,
-            student.program,
-            student.year,
-            student.section,
-            student.source
-
-        ].some(value =>
-            String(value).toLowerCase().includes(keyword)
-        );
-
-    });
-
-    if (filtered.length === 0) {
+    // Do not display records when search is empty
+    if (keyword === "") {
 
         tbody.innerHTML = `
             <tr>
-                <td colspan="6">No matching student records found.</td>
+                <td colspan="6">
+                    Enter a keyword above to search students.
+                </td>
             </tr>
         `;
 
@@ -940,23 +926,56 @@ function searchStudentInformation() {
 
     }
 
+    // Find matching student records
+    const filtered = allStudents.filter(student => {
+
+        return [
+            student.student_id,
+            student.name,
+            student.program,
+            student.year,
+            student.section
+        ].some(value =>
+            String(value ?? "").toLowerCase().includes(keyword)
+        );
+
+    });
+
+    // Display message if no matching records
+    if (filtered.length === 0) {
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6">
+                    No matching student records found.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+    // Display matching students only
     filtered.forEach(student => {
 
         const row = document.createElement("tr");
 
-        [
-
+        const values = [
             student.student_id,
             student.name,
             student.program,
             student.year,
             student.section,
             student.source
+        ];
 
-        ].forEach(value => {
+        values.forEach(value => {
 
             const cell = document.createElement("td");
+
             cell.textContent = value ?? "";
+
             row.appendChild(cell);
 
         });
@@ -1100,7 +1119,7 @@ function displayPartnerRecords(records) {
 
     const table = document.getElementById("classmateList");
 
-    table.innerHTML = "";
+    table.replaceChildren();
 
     if (!records || records.length === 0) {
 
@@ -1305,6 +1324,8 @@ async function sendPracticeRecord() {
 
 document.addEventListener("DOMContentLoaded", function() {
 
+    // Load records into My Records.
+    // Search remains empty until the user types.
     loadStudents();
 
 });
