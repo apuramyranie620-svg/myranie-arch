@@ -2,234 +2,321 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Database System | Myranie Apura</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<title>Student Database System | Myranie Apura</title>
 
-        html {
-            scroll-behavior: smooth;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background: #f7f5fb;
-            color: #333;
-        }
+html {
+    scroll-behavior: smooth;
+}
 
-        header {
-            background: linear-gradient(135deg, #9b59b6, #7651a8);
-            color: white;
-            padding: 25px 5%;
-        }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f1f5f9;
+    color: #263449;
+}
 
-        header h1 {
-            margin: 0 0 8px;
-        }
+/* HEADER */
 
-        nav {
-            background: white;
-            padding: 16px 5%;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 22px;
-            box-shadow: 0 2px 8px #ddd;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
+header {
+    background: linear-gradient(135deg, #2459a6, #3979c9);
+    color: white;
+    padding: 25px 5%;
+}
 
-        nav a {
-            color: #8052a3;
-            text-decoration: none;
-            font-weight: bold;
-        }
+header h1 {
+    margin: 0 0 8px;
+}
 
-        nav a:hover {
-            color: #c05c9d;
-        }
+/* NAVIGATION */
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 25px auto;
-        }
+nav {
+    background: white;
+    padding: 17px 5%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
 
-        .card {
-            background: white;
-            padding: 25px;
-            margin-bottom: 25px;
-            border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.07);
-        }
+nav a {
+    color: #2459a6;
+    text-decoration: none;
+    font-weight: bold;
+}
 
-        h2 {
-            color: #9257b5;
-        }
+nav a:hover {
+    color: #8b55b2;
+}
 
-        input {
-            width: 100%;
-            padding: 11px;
-            margin: 7px 0 15px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-        }
+/* MAIN CONTAINER */
 
-        button {
-            background: #9862b8;
-            color: white;
-            border: none;
-            padding: 11px 16px;
-            margin: 4px;
-            border-radius: 7px;
-            cursor: pointer;
-        }
+.container {
+    width: 95%;
+    max-width: 1450px;
+    margin: 25px auto;
+}
 
-        button:hover {
-            background: #754597;
-        }
+.card {
+    background: white;
+    padding: 32px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0,0,0,.06);
+}
 
-        .danger {
-            background: #dc5c72;
-        }
+h2 {
+    color: #2459a6;
+    margin-top: 0;
+}
 
-        .success {
-            background: #269b72;
-        }
+/* STUDENT MANAGEMENT */
 
-        .view {
-            background: #3979b8;
-        }
+.student-management h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
 
-        .secondary {
-            background: #64748b;
-        }
+.section-description {
+    color: #64748b;
+    margin-bottom: 20px;
+}
 
-        .table-wrapper {
-            overflow-x: auto;
-        }
+.student-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            min-width: 650px;
-        }
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
 
-        th, td {
-            border: 1px solid #e6dcec;
-            padding: 12px;
-            text-align: left;
-        }
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 9px;
+}
 
-        th {
-            background: #a878c3;
-            color: white;
-        }
+.form-group input,
+.form-group select {
+    width: 100%;
+    height: 55px;
+    padding: 12px 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: white;
+    font-size: 16px;
+    outline: none;
+}
 
-        tr:nth-child(even) {
-            background: #faf7fc;
-        }
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37,99,235,.15);
+}
 
-        .message {
-            margin: 12px 0;
-            color: #8052a3;
-            font-weight: bold;
-            overflow-wrap: anywhere;
-        }
+.form-buttons {
+    display: flex;
+    gap: 9px;
+    margin-top: 22px;
+}
 
-        .error {
-            color: #c0392b;
-        }
+/* BUTTONS */
 
-        .details {
-            background: #f8f1fc;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
+button {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 3px;
+    color: white;
+    background: #3979b8;
+}
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #777;
-        }
+button:hover {
+    opacity: .85;
+}
 
-        section {
-            scroll-margin-top: 85px;
-        }
+.add-student-btn {
+    background: #16843d;
+    padding: 14px 22px;
+}
 
-        /* =================================
-           TOAST NOTIFICATION
-        ================================= */
+.clear-form-btn {
+    background: #64748b;
+    padding: 14px 22px;
+}
 
-        .toast-notification {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            background: #269b72;
-            color: white;
-            padding: 17px 22px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            z-index: 9999;
-            display: none;
-            min-width: 280px;
-            max-width: 90%;
-            animation: slideIn 0.4s ease;
-        }
+.view {
+    background: #3979b8;
+}
 
-        .toast-notification.show {
-            display: block;
-        }
+.save {
+    background: #16843d;
+}
 
-        .toast-notification.error {
-            background: #dc5c72;
-        }
+.danger {
+    background: #dc5c72;
+}
 
-        .toast-notification strong {
-            display: block;
-            margin-bottom: 5px;
-        }
+.primary {
+    background: #8b55b2;
+}
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
+/* INPUTS */
 
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
+.search-input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    margin: 10px 0;
+    font-size: 15px;
+}
 
-        @media (max-width: 600px) {
-            .container {
-                width: 95%;
-            }
+/* TABLES */
 
-            .card {
-                padding: 16px;
-            }
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
 
-            .toast-notification {
-                right: 5%;
-                top: 15px;
-                min-width: 90%;
-            }
-        }
-    </style>
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    min-width: 650px;
+}
+
+th, td {
+    border: 1px solid #e2e8f0;
+    padding: 13px;
+    text-align: left;
+}
+
+th {
+    background: #3979b8;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+/* MESSAGES */
+
+.message {
+    color: #2459a6;
+    font-weight: bold;
+    margin: 12px 0;
+    overflow-wrap: anywhere;
+}
+
+.error-message {
+    color: #dc3545;
+}
+
+/* NOTIFICATION */
+
+.toast-notification {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    background: #16843d;
+    color: white;
+    padding: 17px 22px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.2);
+    z-index: 9999;
+    display: none;
+    min-width: 280px;
+    max-width: 90%;
+    animation: slideIn .4s ease;
+}
+
+.toast-notification.show {
+    display: block;
+}
+
+.toast-notification.error {
+    background: #dc3545;
+}
+
+.toast-notification strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* FOOTER */
+
+footer {
+    background: white;
+    padding: 20px;
+    text-align: center;
+    color: #64748b;
+    margin-top: 30px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 700px) {
+
+    .student-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    .student-management h2 {
+        font-size: 24px;
+    }
+
+    .form-buttons {
+        flex-wrap: wrap;
+    }
+
+    nav {
+        gap: 12px;
+    }
+
+    .toast-notification {
+        right: 5%;
+        min-width: 90%;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <!-- NOTIFICATION -->
+
 <div id="notification"
      class="toast-notification"
      role="status"
@@ -240,57 +327,173 @@
 
 </div>
 
+<!-- HEADER -->
+
 <header id="home">
+
     <h1>Student Database System</h1>
-    <p>Manage, retrieve, and exchange student records through API integration.</p>
-    <p>Developer: Myranie Apura</p>
+
+    <p>Student Information Management and System Integration</p>
+
+    <p>Developed by: Myranie Apura | BSIT 3A</p>
+
 </header>
 
+<!-- NAVIGATION -->
+
 <nav>
+
     <a href="#home">Home</a>
+
     <a href="#studentInformation">Student Information</a>
+
     <a href="#searchStudents">Search Students</a>
+
     <a href="#myRecords">My Records</a>
+
 </nav>
+
 
 <div class="container">
 
-    <!-- STUDENT INFORMATION -->
+    <!-- =================================
+         STUDENT MANAGEMENT
+    ================================== -->
 
-    <section id="studentInformation" class="card">
+    <section id="studentInformation"
+             class="card student-management">
 
-        <h2>Student Information</h2>
+        <h2>Student Management</h2>
+
+        <p class="section-description">
+            Add, edit, and manage your own student records.
+        </p>
 
         <form id="studentForm" onsubmit="return false;">
 
-            <label>Student ID</label>
-            <input type="text" id="student_id"
-                   placeholder="Enter student ID" required>
+            <div class="student-form-grid">
 
-            <label>Student Name</label>
-            <input type="text" id="name"
-                   placeholder="Enter student name" required>
+                <!-- STUDENT ID -->
 
-            <label>Program</label>
-            <input type="text" id="program"
-                   placeholder="Enter program" required>
+                <div class="form-group">
 
-            <label>Year Level</label>
-            <input type="number" id="year"
-                   min="1" placeholder="Enter year level" required>
+                    <label for="student_id">Student ID</label>
 
-            <label>Section</label>
-            <input type="text" id="section"
-                   placeholder="Enter section" required>
+                    <input
+                        type="text"
+                        id="student_id"
+                        placeholder="Enter Student ID"
+                        required
+                    >
 
-            <button type="button" onclick="addStudent()">
-                Add Student
-            </button>
+                </div>
 
-            <button type="button" onclick="clearForm()"
-                    class="secondary">
-                Clear
-            </button>
+                <!-- FULL NAME -->
+
+                <div class="form-group">
+
+                    <label for="name">Full Name</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Enter Full Name"
+                        required
+                    >
+
+                </div>
+
+                <!-- PROGRAM -->
+
+                <div class="form-group">
+
+                    <label for="program">Program</label>
+
+                    <select id="program" required>
+
+                        <option value="">Select Program</option>
+
+                        <option value="BSIT">BSIT</option>
+
+                        <option value="BSCS">BSCS</option>
+
+                        <option value="BSIS">BSIS</option>
+
+                        <option value="BSEMC">BSEMC</option>
+
+                    </select>
+
+                </div>
+
+                <!-- YEAR LEVEL -->
+
+                <div class="form-group">
+
+                    <label for="year">Year Level</label>
+
+                    <select id="year" required>
+
+                        <option value="">Select Year</option>
+
+                        <option value="1">1st Year</option>
+
+                        <option value="2">2nd Year</option>
+
+                        <option value="3">3rd Year</option>
+
+                        <option value="4">4th Year</option>
+
+                    </select>
+
+                </div>
+
+                <!-- SECTION -->
+
+                <div class="form-group">
+
+                    <label for="section">Section</label>
+
+                    <select id="section" required>
+
+                        <option value="">Select Section</option>
+
+                        <option value="A">A</option>
+
+                        <option value="B">B</option>
+
+                        <option value="C">C</option>
+
+                        <option value="D">D</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <!-- BUTTONS -->
+
+            <div class="form-buttons">
+
+                <button
+                    type="button"
+                    class="add-student-btn"
+                    onclick="addStudent()">
+
+                    Add Student
+
+                </button>
+
+                <button
+                    type="button"
+                    class="clear-form-btn"
+                    onclick="clearForm()">
+
+                    Clear Form
+
+                </button>
+
+            </div>
 
         </form>
 
@@ -299,47 +502,67 @@
     </section>
 
 
-    <!-- SEARCH STUDENTS -->
+    <!-- =================================
+         SEARCH STUDENTS
+    ================================== -->
 
     <section id="searchStudents" class="card">
 
         <h2>Search Students</h2>
 
-        <input type="text" id="studentSearch"
-               placeholder="Search student ID, name, program, or section"
-               oninput="searchStudentInformation()">
+        <p>Search student records by ID, name, program, or section.</p>
+
+        <input
+            type="text"
+            id="studentSearch"
+            class="search-input"
+            placeholder="Search students..."
+            oninput="searchStudentInformation()"
+        >
 
         <div class="table-wrapper">
+
             <table>
 
                 <thead>
+
                     <tr>
                         <th>Student ID</th>
-                        <th>Name</th>
+                        <th>Full Name</th>
                         <th>Program</th>
                         <th>Year</th>
                         <th>Section</th>
                         <th>Source</th>
                     </tr>
+
                 </thead>
 
-                <tbody id="searchStudentList"></tbody>
+                <tbody id="searchStudentList">
+
+                    <tr>
+                        <td colspan="6">Loading records...</td>
+                    </tr>
+
+                </tbody>
 
             </table>
+
         </div>
 
     </section>
 
 
-    <!-- MY RECORDS -->
+    <!-- =================================
+         MY RECORDS
+    ================================== -->
 
     <section id="myRecords" class="card">
 
-        <h2>My Records</h2>
+        <h2>My Student Records</h2>
 
         <p>View and manage your saved student records.</p>
 
-        <button onclick="loadStudents()">
+        <button class="primary" onclick="loadStudents()">
             Refresh My Records
         </button>
 
@@ -350,41 +573,55 @@
             <table>
 
                 <thead>
+
                     <tr>
                         <th>Student ID</th>
-                        <th>Name</th>
+                        <th>Full Name</th>
                         <th>Program</th>
                         <th>Year</th>
                         <th>Section</th>
                         <th>Source</th>
                         <th>Action</th>
                     </tr>
+
                 </thead>
 
-                <tbody id="studentList"></tbody>
+                <tbody id="studentList">
+
+                    <tr>
+                        <td colspan="7">Loading records...</td>
+                    </tr>
+
+                </tbody>
 
             </table>
 
         </div>
 
+        <hr style="margin: 35px 0;">
 
-        <hr>
-
-        <!-- PARTNER RECORDS -->
+        <!-- =================================
+             PARTNER STUDENT RECORDS
+        ================================== -->
 
         <h2>Partner Student Records</h2>
 
         <p>
-            Retrieve student records from your classmate's deployed Flask API.
-            You can view and save selected partner records to your database.
+            Retrieve student records from your classmate's deployed
+            Flask API. You can view and save selected partner
+            records to your database.
         </p>
 
-        <button onclick="loadClassmate()">
+        <button class="primary" onclick="loadClassmate()">
+
             Retrieve Partner Records
+
         </button>
 
-        <button onclick="sendPracticeRecord()">
+        <button class="primary" onclick="sendPracticeRecord()">
+
             Send Practice Record to Partner
+
         </button>
 
         <p id="remoteMessage" class="message"></p>
@@ -396,14 +633,16 @@
             <table>
 
                 <thead>
+
                     <tr>
                         <th>Student ID</th>
-                        <th>Name</th>
+                        <th>Full Name</th>
                         <th>Program</th>
                         <th>Year</th>
                         <th>Section</th>
                         <th>Action</th>
                     </tr>
+
                 </thead>
 
                 <tbody id="classmateList">
@@ -424,9 +663,17 @@
 
 </div>
 
+
+<!-- FOOTER -->
+
 <footer>
-    <p>Student Database System | Laboratory Activity 9</p>
+
+    <p>Student Database System</p>
+
+    <p>Laboratory Activity 9 - System-to-System Integration</p>
+
     <p>Developed by Myranie Apura</p>
+
 </footer>
 
 
@@ -441,7 +688,7 @@ let notificationTimer;
 
 
 // ==========================================
-// SHOW NOTIFICATION
+// NOTIFICATION FUNCTION
 // ==========================================
 
 function showNotification(title, message, type = "success") {
@@ -465,107 +712,24 @@ function showNotification(title, message, type = "success") {
         notification.classList.remove("show");
 
     }, 4000);
+
 }
 
 
 // ==========================================
-// FORM FUNCTIONS
+// RESPONSE HELPER
 // ==========================================
 
-function getFormData() {
+async function getResponseData(response) {
 
-    return {
-        student_id: document.getElementById("student_id").value.trim(),
-        name: document.getElementById("name").value.trim(),
-        program: document.getElementById("program").value.trim(),
-        year: document.getElementById("year").value,
-        section: document.getElementById("section").value.trim()
-    };
-}
-
-
-function validateForm(data) {
-
-    if (
-        !data.student_id ||
-        !data.name ||
-        !data.program ||
-        !data.year ||
-        !data.section ||
-        Number(data.year) < 1
-    ) {
-
-        showNotification(
-            "Incomplete Information!",
-            "Please complete all student fields.",
-            "error"
-        );
-
-        return false;
-    }
-
-    return true;
-}
-
-
-function clearForm() {
-
-    document.getElementById("studentForm").reset();
-
-    document.getElementById("formMessage").textContent = "";
-}
-
-
-// ==========================================
-// ADD STUDENT
-// ==========================================
-
-async function addStudent() {
-
-    const data = getFormData();
-
-    if (!validateForm(data)) return;
+    const text = await response.text();
 
     try {
-
-        const response = await fetch("/api/students", {
-
-            method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify(data)
-
-        });
-
-        const result = await response.json();
-
-        if (!response.ok || !result.success) {
-
-            throw new Error(
-                result.message || result.error || "Unable to add student."
-            );
-        }
-
-        showNotification(
-            "Student Added Successfully!",
-            data.name + " has been added to your database."
-        );
-
-        clearForm();
-
-        await loadStudents();
-
-    } catch (error) {
-
-        showNotification(
-            "Unable to Add Student!",
-            error.message,
-            "error"
-        );
+        return JSON.parse(text);
+    } catch {
+        throw new Error("The server returned an invalid response.");
     }
+
 }
 
 
@@ -598,18 +762,131 @@ function normalizeStudent(student) {
             ""
         ),
 
-        year: student.year ?? student.year_level ?? student.yearLevel ?? "",
+        year: student.year ?? student.year_level ?? "",
 
-        section: String(student.section || student.block || ""),
+        section: String(
+            student.section || student.block || ""
+        ),
 
-        source: student.source || "Unknown"
+        source: student.source || "Local"
 
     };
+
 }
 
 
 // ==========================================
-// LOAD LOCAL STUDENTS
+// FORM DATA
+// ==========================================
+
+function getFormData() {
+
+    return {
+
+        student_id: document.getElementById("student_id").value.trim(),
+
+        name: document.getElementById("name").value.trim(),
+
+        program: document.getElementById("program").value,
+
+        year: document.getElementById("year").value,
+
+        section: document.getElementById("section").value
+
+    };
+
+}
+
+
+// ==========================================
+// CLEAR FORM
+// ==========================================
+
+function clearForm() {
+
+    document.getElementById("studentForm").reset();
+
+    document.getElementById("formMessage").textContent = "";
+
+}
+
+
+// ==========================================
+// ADD STUDENT
+// ==========================================
+
+async function addStudent() {
+
+    const data = getFormData();
+
+    if (
+        !data.student_id ||
+        !data.name ||
+        !data.program ||
+        !data.year ||
+        !data.section
+    ) {
+
+        showNotification(
+            "Incomplete Information!",
+            "Please complete all student fields.",
+            "error"
+        );
+
+        return;
+
+    }
+
+    try {
+
+        const response = await fetch("/api/students", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify(data)
+
+        });
+
+        const result = await getResponseData(response);
+
+        if (!response.ok || result.success === false) {
+
+            throw new Error(
+                result.message ||
+                result.error ||
+                "Unable to add student."
+            );
+
+        }
+
+        showNotification(
+            "Student Added Successfully!",
+            data.name + " has been added to your database."
+        );
+
+        clearForm();
+
+        await loadStudents();
+
+    } catch (error) {
+
+        showNotification(
+            "Unable to Add Student!",
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+// ==========================================
+// LOAD MY STUDENTS
 // ==========================================
 
 async function loadStudents() {
@@ -620,13 +897,19 @@ async function loadStudents() {
 
         const response = await fetch("/api/students");
 
-        const students = await response.json();
+        const result = await getResponseData(response);
 
-        if (!response.ok || !Array.isArray(students)) {
+        if (!response.ok) {
+
             throw new Error("Unable to retrieve student records.");
+
         }
 
-        allStudents = students.map(normalizeStudent);
+        const records = Array.isArray(result)
+            ? result
+            : (result.students || result.records || []);
+
+        allStudents = records.map(normalizeStudent);
 
         tbody.replaceChildren();
 
@@ -638,7 +921,13 @@ async function loadStudents() {
                 </tr>
             `;
 
+            document.getElementById("myMessage").textContent =
+                "No student records available.";
+
+            searchStudentInformation();
+
             return;
+
         }
 
         allStudents.forEach(student => {
@@ -652,6 +941,7 @@ async function loadStudents() {
                 student.year,
                 student.section,
                 student.source
+
             ].forEach(value => {
 
                 const cell = document.createElement("td");
@@ -675,7 +965,7 @@ async function loadStudents() {
                 alert(
                     "STUDENT INFORMATION\n\n" +
                     "Student ID: " + student.student_id + "\n" +
-                    "Name: " + student.name + "\n" +
+                    "Full Name: " + student.name + "\n" +
                     "Program: " + student.program + "\n" +
                     "Year: " + student.year + "\n" +
                     "Section: " + student.section + "\n" +
@@ -708,7 +998,9 @@ async function loadStudents() {
     } catch (error) {
 
         document.getElementById("myMessage").textContent = error.message;
+
     }
+
 }
 
 
@@ -728,12 +1020,14 @@ function searchStudentInformation() {
     const filtered = allStudents.filter(student => {
 
         return [
+
             student.student_id,
             student.name,
             student.program,
             student.year,
             student.section,
             student.source
+
         ].some(value =>
             String(value).toLowerCase().includes(keyword)
         );
@@ -749,6 +1043,7 @@ function searchStudentInformation() {
         `;
 
         return;
+
     }
 
     filtered.forEach(student => {
@@ -756,12 +1051,14 @@ function searchStudentInformation() {
         const row = document.createElement("tr");
 
         [
+
             student.student_id,
             student.name,
             student.program,
             student.year,
             student.section,
             student.source
+
         ].forEach(value => {
 
             const cell = document.createElement("td");
@@ -775,6 +1072,7 @@ function searchStudentInformation() {
         tbody.appendChild(row);
 
     });
+
 }
 
 
@@ -784,26 +1082,42 @@ function searchStudentInformation() {
 
 async function deleteStudent(id) {
 
+    if (!id) {
+
+        showNotification(
+            "Unable to Delete!",
+            "Student database ID is missing.",
+            "error"
+        );
+
+        return;
+
+    }
+
     if (!confirm("Are you sure you want to delete this student?")) {
         return;
     }
 
     try {
 
-        const response = await fetch(`/api/students/${id}`, {
-            method: "DELETE"
-        });
+        const response = await fetch(
+            `/api/students/${encodeURIComponent(id)}`,
+            { method: "DELETE" }
+        );
 
-        const result = await response.json();
+        const result = await getResponseData(response);
 
-        if (!response.ok || !result.success) {
+        if (!response.ok || result.success === false) {
 
-            throw new Error(result.message || "Unable to delete student.");
+            throw new Error(
+                result.message || result.error || "Unable to delete student."
+            );
+
         }
 
         showNotification(
             "Student Deleted!",
-            "The student record was deleted successfully."
+            "Student record deleted successfully."
         );
 
         await loadStudents();
@@ -815,7 +1129,9 @@ async function deleteStudent(id) {
             error.message,
             "error"
         );
+
     }
+
 }
 
 
@@ -833,39 +1149,54 @@ async function loadClassmate() {
 
     message.textContent = "Retrieving partner records...";
 
-    tbody.replaceChildren();
+    tbody.innerHTML = `
+        <tr>
+            <td colspan="6">Loading partner records...</td>
+        </tr>
+    `;
 
     try {
 
         const response = await fetch("/partner-records");
 
-        const result = await response.json();
+        const result = await getResponseData(response);
 
-        if (!response.ok || !result.success) {
+        if (!response.ok || result.success === false) {
 
             throw new Error(
-                result.error || "Unable to retrieve partner records."
+                result.error ||
+                result.message ||
+                "Unable to retrieve partner records."
             );
+
         }
 
-        displayPartnerRecords(result.records);
+        const records = Array.isArray(result)
+            ? result
+            : (result.records || result.students || []);
+
+        displayPartnerRecords(records);
 
         message.textContent =
-            result.message + " Total records: " + result.total;
+            "Partner records retrieved successfully. Total: " +
+            records.length;
 
     } catch (error) {
 
-        message.className = "message error";
+        message.className = "message error-message";
 
         message.textContent = error.message;
 
         tbody.innerHTML = `
             <tr>
-                <td colspan="6">Unable to retrieve partner records.</td>
+                <td colspan="6">
+                    Unable to retrieve partner records.
+                </td>
             </tr>
         `;
 
     }
+
 }
 
 
@@ -888,6 +1219,7 @@ function displayPartnerRecords(records) {
         `;
 
         return;
+
     }
 
     records.forEach(originalStudent => {
@@ -897,11 +1229,13 @@ function displayPartnerRecords(records) {
         const row = document.createElement("tr");
 
         const values = [
+
             student.student_id,
             student.name,
             student.program,
             student.year,
             student.section
+
         ];
 
         values.forEach(value => {
@@ -929,7 +1263,7 @@ function displayPartnerRecords(records) {
             alert(
                 "PARTNER STUDENT INFORMATION\n\n" +
                 "Student ID: " + student.student_id + "\n" +
-                "Name: " + student.name + "\n" +
+                "Full Name: " + student.name + "\n" +
                 "Program: " + student.program + "\n" +
                 "Year: " + student.year + "\n" +
                 "Section: " + student.section
@@ -943,19 +1277,18 @@ function displayPartnerRecords(records) {
 
         saveButton.textContent = "Save to My Database";
 
-        saveButton.className = "success";
+        saveButton.className = "save";
 
-        saveButton.onclick = () => savePartnerRecord(student);
+        saveButton.onclick = () => savePartnerRecord(student, saveButton);
 
-        actionCell.appendChild(viewButton);
-
-        actionCell.appendChild(saveButton);
+        actionCell.append(viewButton, saveButton);
 
         row.appendChild(actionCell);
 
         table.appendChild(row);
 
     });
+
 }
 
 
@@ -963,7 +1296,11 @@ function displayPartnerRecords(records) {
 // SAVE PARTNER RECORD TO MY DATABASE
 // ==========================================
 
-async function savePartnerRecord(student) {
+async function savePartnerRecord(student, button) {
+
+    button.disabled = true;
+
+    button.textContent = "Saving...";
 
     try {
 
@@ -987,43 +1324,42 @@ async function savePartnerRecord(student) {
 
         });
 
-        const result = await response.json();
+        const result = await getResponseData(response);
 
-        if (response.ok && result.success) {
+        if (!response.ok || result.success !== true) {
 
-            // SUCCESS NOTIFICATION
-
-            showNotification(
-                "Student Saved Successfully!",
-                student.name + " has been added to your database.",
-                "success"
-            );
-
-            // REFRESH LOCAL DATABASE
-
-            await loadStudents();
-
-        } else {
-
-            // ERROR NOTIFICATION
-
-            showNotification(
-                "Unable to Save Student!",
-                result.message || result.error || "Please try again.",
-                "error"
+            throw new Error(
+                result.message ||
+                result.error ||
+                "Unable to save partner record."
             );
 
         }
 
+        showNotification(
+            "Student Saved Successfully!",
+            student.name + " has been added to your database.",
+            "success"
+        );
+
+        button.textContent = "Saved";
+
+        await loadStudents();
+
     } catch (error) {
 
         showNotification(
-            "Connection Error!",
-            "Unable to save the partner student record.",
+            "Unable to Save Student!",
+            error.message,
             "error"
         );
 
+        button.disabled = false;
+
+        button.textContent = "Save to My Database";
+
     }
+
 }
 
 
@@ -1047,26 +1383,29 @@ async function sendPracticeRecord() {
 
         });
 
-        const result = await response.json();
+        const result = await getResponseData(response);
 
-        if (!response.ok || !result.success) {
+        if (!response.ok || result.success === false) {
 
             throw new Error(
-                result.message || result.error ||
+                result.message ||
+                result.error ||
                 "Unable to send practice record."
             );
+
         }
 
-        message.textContent = result.message;
+        message.textContent =
+            result.message || "Practice record sent successfully.";
 
         showNotification(
             "Practice Record Sent!",
-            "The practice record was accepted by the partner API."
+            "Partner API accepted the practice record."
         );
 
     } catch (error) {
 
-        message.className = "message error";
+        message.className = "message error-message";
 
         message.textContent = error.message;
 
@@ -1075,7 +1414,9 @@ async function sendPracticeRecord() {
             error.message,
             "error"
         );
+
     }
+
 }
 
 
