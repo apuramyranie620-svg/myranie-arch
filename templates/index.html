@@ -19,14 +19,13 @@ html {
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    background: #f1f5f9;
-    color: #263449;
+    background: #fdf4fa;
+    color: #51445b;
 }
 
 /* HEADER */
-
 header {
-    background: linear-gradient(135deg, #2459a6, #3979c9);
+    background: linear-gradient(135deg, #c9a5e8, #f2b8d5);
     color: white;
     padding: 25px 5%;
 }
@@ -36,31 +35,29 @@ header h1 {
 }
 
 /* NAVIGATION */
-
 nav {
-    background: white;
+    background: #fff8fc;
     padding: 17px 5%;
     display: flex;
     flex-wrap: wrap;
     gap: 25px;
-    box-shadow: 0 2px 8px rgba(0,0,0,.08);
+    box-shadow: 0 2px 10px rgba(180,130,190,.12);
     position: sticky;
     top: 0;
     z-index: 100;
 }
 
 nav a {
-    color: #2459a6;
+    color: #9866b5;
     text-decoration: none;
     font-weight: bold;
 }
 
 nav a:hover {
-    color: #8b55b2;
+    color: #d47cae;
 }
 
 /* MAIN CONTAINER */
-
 .container {
     width: 95%;
     max-width: 1450px;
@@ -71,24 +68,24 @@ nav a:hover {
     background: white;
     padding: 32px;
     margin-bottom: 25px;
-    border-radius: 12px;
-    box-shadow: 0 3px 15px rgba(0,0,0,.06);
+    border: 1px solid #f3e3f2;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(190,150,200,.10);
 }
 
 h2 {
-    color: #2459a6;
+    color: #a36cbd;
     margin-top: 0;
 }
 
 /* STUDENT MANAGEMENT */
-
 .student-management h2 {
     font-size: 30px;
     margin-bottom: 20px;
 }
 
 .section-description {
-    color: #64748b;
+    color: #927e9b;
     margin-bottom: 20px;
 }
 
@@ -113,17 +110,18 @@ h2 {
     width: 100%;
     height: 55px;
     padding: 12px 15px;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    background: white;
+    border: 1px solid #e7cce8;
+    border-radius: 9px;
+    background: #fffafd;
+    color: #51445b;
     font-size: 16px;
     outline: none;
 }
 
 .form-group input:focus,
 .form-group select:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 2px rgba(37,99,235,.15);
+    border-color: #bd91d8;
+    box-shadow: 0 0 0 3px rgba(189,145,216,.15);
 }
 
 .form-buttons {
@@ -133,7 +131,6 @@ h2 {
 }
 
 /* BUTTONS */
-
 button {
     border: none;
     padding: 12px 18px;
@@ -143,52 +140,73 @@ button {
     font-weight: bold;
     margin: 3px;
     color: white;
-    background: #3979b8;
+    background: #b58bd4;
+    transition: .2s ease;
 }
 
 button:hover {
     opacity: .85;
+    transform: translateY(-1px);
+}
+
+button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
 }
 
 .add-student-btn {
-    background: #16843d;
+    background: #b58bd4;
     padding: 14px 22px;
+}
+
+.add-student-btn:hover {
+    background: #9f70c2;
 }
 
 .clear-form-btn {
-    background: #64748b;
+    background: #e9a9c9;
     padding: 14px 22px;
 }
 
+.clear-form-btn:hover {
+    background: #d98bb4;
+}
+
 .view {
-    background: #3979b8;
+    background: #c49cdd;
 }
 
 .save {
-    background: #16843d;
+    background: #d98bb4;
 }
 
 .danger {
-    background: #dc5c72;
+    background: #df91a8;
 }
 
 .primary {
-    background: #8b55b2;
+    background: #b58bd4;
 }
 
-/* INPUTS */
-
+/* SEARCH INPUT */
 .search-input {
     width: 100%;
     padding: 14px;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
+    border: 1px solid #e7cce8;
+    border-radius: 9px;
     margin: 10px 0;
     font-size: 15px;
+    background: #fffafd;
+    color: #51445b;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #bd91d8;
+    box-shadow: 0 0 0 3px rgba(189,145,216,.15);
 }
 
 /* TABLES */
-
 .table-wrapper {
     width: 100%;
     overflow-x: auto;
@@ -202,40 +220,42 @@ table {
 }
 
 th, td {
-    border: 1px solid #e2e8f0;
+    border: 1px solid #f0e1ef;
     padding: 13px;
     text-align: left;
 }
 
 th {
-    background: #3979b8;
+    background: #c49cdd;
     color: white;
 }
 
 tr:nth-child(even) {
-    background: #f8fafc;
+    background: #fff7fb;
+}
+
+tr:hover {
+    background: #fcf0f8;
 }
 
 /* MESSAGES */
-
 .message {
-    color: #2459a6;
+    color: #a36cbd;
     font-weight: bold;
     margin: 12px 0;
     overflow-wrap: anywhere;
 }
 
 .error-message {
-    color: #dc3545;
+    color: #d77e9f;
 }
 
-/* NOTIFICATION */
-
+/* NOTIFICATIONS */
 .toast-notification {
     position: fixed;
     top: 25px;
     right: 25px;
-    background: #16843d;
+    background: #a87ac5;
     color: white;
     padding: 17px 22px;
     border-radius: 10px;
@@ -252,7 +272,7 @@ tr:nth-child(even) {
 }
 
 .toast-notification.error {
-    background: #dc3545;
+    background: #d77e9f;
 }
 
 .toast-notification strong {
@@ -272,19 +292,23 @@ tr:nth-child(even) {
 }
 
 /* FOOTER */
-
 footer {
-    background: white;
+    background: #fff5fa;
     padding: 20px;
     text-align: center;
-    color: #64748b;
+    color: #987fa3;
     margin-top: 30px;
+    border-top: 1px solid #f0dced;
+}
+
+/* DIVIDER */
+hr {
+    border: none;
+    border-top: 1px solid #f0dced;
 }
 
 /* RESPONSIVE */
-
 @media(max-width: 700px) {
-
     .student-form-grid {
         grid-template-columns: 1fr;
     }
@@ -316,7 +340,6 @@ footer {
 <body>
 
 <!-- NOTIFICATION -->
-
 <div id="notification"
      class="toast-notification"
      role="status"
@@ -328,40 +351,24 @@ footer {
 </div>
 
 <!-- HEADER -->
-
 <header id="home">
-
     <h1>Student Database System</h1>
-
     <p>Student Information Management and System Integration</p>
-
     <p>Developed by: Myranie Apura | BSIT 3A</p>
-
 </header>
 
 <!-- NAVIGATION -->
-
 <nav>
-
     <a href="#home">Home</a>
-
     <a href="#studentInformation">Student Information</a>
-
     <a href="#searchStudents">Search Students</a>
-
     <a href="#myRecords">My Records</a>
-
 </nav>
-
 
 <div class="container">
 
-    <!-- =================================
-         STUDENT MANAGEMENT
-    ================================== -->
-
-    <section id="studentInformation"
-             class="card student-management">
+    <!-- STUDENT MANAGEMENT -->
+    <section id="studentInformation" class="card student-management">
 
         <h2>Student Management</h2>
 
@@ -373,124 +380,69 @@ footer {
 
             <div class="student-form-grid">
 
-                <!-- STUDENT ID -->
-
                 <div class="form-group">
-
                     <label for="student_id">Student ID</label>
-
-                    <input
-                        type="text"
-                        id="student_id"
-                        placeholder="Enter Student ID"
-                        required
-                    >
-
+                    <input type="text"
+                           id="student_id"
+                           placeholder="Enter Student ID"
+                           required>
                 </div>
 
-                <!-- FULL NAME -->
-
                 <div class="form-group">
-
                     <label for="name">Full Name</label>
-
-                    <input
-                        type="text"
-                        id="name"
-                        placeholder="Enter Full Name"
-                        required
-                    >
-
+                    <input type="text"
+                           id="name"
+                           placeholder="Enter Full Name"
+                           required>
                 </div>
 
-                <!-- PROGRAM -->
-
                 <div class="form-group">
-
                     <label for="program">Program</label>
-
                     <select id="program" required>
-
                         <option value="">Select Program</option>
-
                         <option value="BSIT">BSIT</option>
-
                         <option value="BSCS">BSCS</option>
-
                         <option value="BSIS">BSIS</option>
-
                         <option value="BSEMC">BSEMC</option>
-
                     </select>
-
                 </div>
 
-                <!-- YEAR LEVEL -->
-
                 <div class="form-group">
-
                     <label for="year">Year Level</label>
-
                     <select id="year" required>
-
                         <option value="">Select Year</option>
-
                         <option value="1">1st Year</option>
-
                         <option value="2">2nd Year</option>
-
                         <option value="3">3rd Year</option>
-
                         <option value="4">4th Year</option>
-
                     </select>
-
                 </div>
 
-                <!-- SECTION -->
-
                 <div class="form-group">
-
                     <label for="section">Section</label>
-
                     <select id="section" required>
-
                         <option value="">Select Section</option>
-
                         <option value="A">A</option>
-
                         <option value="B">B</option>
-
                         <option value="C">C</option>
-
                         <option value="D">D</option>
-
                     </select>
-
                 </div>
 
             </div>
 
-            <!-- BUTTONS -->
-
             <div class="form-buttons">
 
-                <button
-                    type="button"
-                    class="add-student-btn"
-                    onclick="addStudent()">
-
+                <button type="button"
+                        class="add-student-btn"
+                        onclick="addStudent()">
                     Add Student
-
                 </button>
 
-                <button
-                    type="button"
-                    class="clear-form-btn"
-                    onclick="clearForm()">
-
+                <button type="button"
+                        class="clear-form-btn"
+                        onclick="clearForm()">
                     Clear Form
-
                 </button>
 
             </div>
@@ -501,31 +453,22 @@ footer {
 
     </section>
 
-
-    <!-- =================================
-         SEARCH STUDENTS
-    ================================== -->
-
+    <!-- SEARCH STUDENTS -->
     <section id="searchStudents" class="card">
 
         <h2>Search Students</h2>
 
         <p>Search student records by ID, name, program, or section.</p>
 
-        <input
-            type="text"
-            id="studentSearch"
-            class="search-input"
-            placeholder="Search students..."
-            oninput="searchStudentInformation()"
-        >
+        <input type="text"
+               id="studentSearch"
+               class="search-input"
+               placeholder="Search students..."
+               oninput="searchStudentInformation()">
 
         <div class="table-wrapper">
-
             <table>
-
                 <thead>
-
                     <tr>
                         <th>Student ID</th>
                         <th>Full Name</th>
@@ -534,28 +477,19 @@ footer {
                         <th>Section</th>
                         <th>Source</th>
                     </tr>
-
                 </thead>
 
                 <tbody id="searchStudentList">
-
                     <tr>
                         <td colspan="6">Loading records...</td>
                     </tr>
-
                 </tbody>
-
             </table>
-
         </div>
 
     </section>
 
-
-    <!-- =================================
-         MY RECORDS
-    ================================== -->
-
+    <!-- MY RECORDS -->
     <section id="myRecords" class="card">
 
         <h2>My Student Records</h2>
@@ -569,11 +503,8 @@ footer {
         <p id="myMessage" class="message"></p>
 
         <div class="table-wrapper">
-
             <table>
-
                 <thead>
-
                     <tr>
                         <th>Student ID</th>
                         <th>Full Name</th>
@@ -583,27 +514,19 @@ footer {
                         <th>Source</th>
                         <th>Action</th>
                     </tr>
-
                 </thead>
 
                 <tbody id="studentList">
-
                     <tr>
                         <td colspan="7">Loading records...</td>
                     </tr>
-
                 </tbody>
-
             </table>
-
         </div>
 
         <hr style="margin: 35px 0;">
 
-        <!-- =================================
-             PARTNER STUDENT RECORDS
-        ================================== -->
-
+        <!-- PARTNER STUDENT RECORDS -->
         <h2>Partner Student Records</h2>
 
         <p>
@@ -613,27 +536,19 @@ footer {
         </p>
 
         <button class="primary" onclick="loadClassmate()">
-
             Retrieve Partner Records
-
         </button>
 
         <button class="primary" onclick="sendPracticeRecord()">
-
             Send Practice Record to Partner
-
         </button>
 
         <p id="remoteMessage" class="message"></p>
-
         <p id="sendMessage" class="message"></p>
 
         <div class="table-wrapper">
-
             <table>
-
                 <thead>
-
                     <tr>
                         <th>Student ID</th>
                         <th>Full Name</th>
@@ -642,40 +557,28 @@ footer {
                         <th>Section</th>
                         <th>Action</th>
                     </tr>
-
                 </thead>
 
                 <tbody id="classmateList">
-
                     <tr>
                         <td colspan="6">
                             Click Retrieve Partner Records.
                         </td>
                     </tr>
-
                 </tbody>
-
             </table>
-
         </div>
 
     </section>
 
 </div>
 
-
 <!-- FOOTER -->
-
 <footer>
-
     <p>Student Database System</p>
-
     <p>Laboratory Activity 9 - System-to-System Integration</p>
-
     <p>Developed by Myranie Apura</p>
-
 </footer>
-
 
 <script>
 
@@ -696,7 +599,6 @@ function showNotification(title, message, type = "success") {
     const notification = document.getElementById("notification");
 
     document.getElementById("notificationTitle").textContent = title;
-
     document.getElementById("notificationMessage").textContent = message;
 
     notification.className = "toast-notification show";
@@ -708,9 +610,7 @@ function showNotification(title, message, type = "success") {
     clearTimeout(notificationTimer);
 
     notificationTimer = setTimeout(() => {
-
         notification.classList.remove("show");
-
     }, 4000);
 
 }
@@ -900,9 +800,7 @@ async function loadStudents() {
         const result = await getResponseData(response);
 
         if (!response.ok) {
-
             throw new Error("Unable to retrieve student records.");
-
         }
 
         const records = Array.isArray(result)
@@ -945,9 +843,7 @@ async function loadStudents() {
             ].forEach(value => {
 
                 const cell = document.createElement("td");
-
-                cell.textContent = value;
-
+                cell.textContent = value ?? "";
                 row.appendChild(cell);
 
             });
@@ -957,7 +853,6 @@ async function loadStudents() {
             const viewButton = document.createElement("button");
 
             viewButton.textContent = "View";
-
             viewButton.className = "view";
 
             viewButton.onclick = () => {
@@ -977,7 +872,6 @@ async function loadStudents() {
             const deleteButton = document.createElement("button");
 
             deleteButton.textContent = "Delete";
-
             deleteButton.className = "danger";
 
             deleteButton.onclick = () => deleteStudent(student.id);
@@ -1062,9 +956,7 @@ function searchStudentInformation() {
         ].forEach(value => {
 
             const cell = document.createElement("td");
-
-            cell.textContent = value;
-
+            cell.textContent = value ?? "";
             row.appendChild(cell);
 
         });
@@ -1110,7 +1002,9 @@ async function deleteStudent(id) {
         if (!response.ok || result.success === false) {
 
             throw new Error(
-                result.message || result.error || "Unable to delete student."
+                result.message ||
+                result.error ||
+                "Unable to delete student."
             );
 
         }
@@ -1146,7 +1040,6 @@ async function loadClassmate() {
     const message = document.getElementById("remoteMessage");
 
     message.className = "message";
-
     message.textContent = "Retrieving partner records...";
 
     tbody.innerHTML = `
@@ -1184,7 +1077,6 @@ async function loadClassmate() {
     } catch (error) {
 
         message.className = "message error-message";
-
         message.textContent = error.message;
 
         tbody.innerHTML = `
@@ -1229,21 +1121,17 @@ function displayPartnerRecords(records) {
         const row = document.createElement("tr");
 
         const values = [
-
             student.student_id,
             student.name,
             student.program,
             student.year,
             student.section
-
         ];
 
         values.forEach(value => {
 
             const cell = document.createElement("td");
-
             cell.textContent = value ?? "";
-
             row.appendChild(cell);
 
         });
@@ -1251,11 +1139,9 @@ function displayPartnerRecords(records) {
         const actionCell = document.createElement("td");
 
         // VIEW BUTTON
-
         const viewButton = document.createElement("button");
 
         viewButton.textContent = "View";
-
         viewButton.className = "view";
 
         viewButton.onclick = () => {
@@ -1272,11 +1158,9 @@ function displayPartnerRecords(records) {
         };
 
         // SAVE BUTTON
-
         const saveButton = document.createElement("button");
 
         saveButton.textContent = "Save to My Database";
-
         saveButton.className = "save";
 
         saveButton.onclick = () => savePartnerRecord(student, saveButton);
@@ -1299,7 +1183,6 @@ function displayPartnerRecords(records) {
 async function savePartnerRecord(student, button) {
 
     button.disabled = true;
-
     button.textContent = "Saving...";
 
     try {
@@ -1338,8 +1221,7 @@ async function savePartnerRecord(student, button) {
 
         showNotification(
             "Student Saved Successfully!",
-            student.name + " has been added to your database.",
-            "success"
+            student.name + " has been added to your database."
         );
 
         button.textContent = "Saved";
@@ -1355,7 +1237,6 @@ async function savePartnerRecord(student, button) {
         );
 
         button.disabled = false;
-
         button.textContent = "Save to My Database";
 
     }
@@ -1372,7 +1253,6 @@ async function sendPracticeRecord() {
     const message = document.getElementById("sendMessage");
 
     message.className = "message";
-
     message.textContent = "Sending practice record...";
 
     try {
@@ -1406,7 +1286,6 @@ async function sendPracticeRecord() {
     } catch (error) {
 
         message.className = "message error-message";
-
         message.textContent = error.message;
 
         showNotification(
