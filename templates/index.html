@@ -9,163 +9,111 @@
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 85px;
+            scroll-padding-top: 90px;
         }
 
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
             background: #fff5fa;
-            color: #493b55;
+            color: #51445a;
+            line-height: 1.6;
         }
 
-        /* NAVIGATION */
+        header {
+            background: linear-gradient(135deg, #e8d5f5, #fbd9e8);
+            padding: 30px 20px;
+            text-align: center;
+            color: #60466f;
+        }
+
+        header h1 {
+            font-size: 28px;
+        }
+
         nav {
+            background: #c9a9df;
+            padding: 14px 10px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
             position: sticky;
             top: 0;
             z-index: 1000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 35px;
-            padding: 17px 15px;
-            background: #dfc9ee;
         }
 
         nav a {
-            color: #59416e;
+            color: white;
             text-decoration: none;
-            font-size: 20px;
-            font-weight: bold;
+            padding: 9px 15px;
+            border-radius: 20px;
+            font-size: 14px;
         }
 
         nav a:hover {
-            color: #a04491;
+            background: #f8d5e5;
+            color: #694b7d;
         }
 
-        /* TOP FLOATING NOTIFICATION */
-        #notification {
-            position: fixed;
-            top: 15px;
-            left: 50%;
-            transform: translate(-50%, -20px);
-            width: calc(100% - 30px);
-            max-width: 650px;
-            padding: 15px 20px;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 16px;
-            font-weight: 500;
-            z-index: 99999;
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.18);
-            transition: opacity 0.3s ease, transform 0.3s ease,
-                        visibility 0.3s ease;
-        }
-
-        #notification.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translate(-50%, 0);
-        }
-
-        #notification.success {
-            background: #d9f3e4;
-            color: #17633c;
-            border: 1px solid #a9dfbd;
-        }
-
-        #notification.error {
-            background: #ffe0e3;
-            color: #a12636;
-            border: 1px solid #f4b5bd;
-        }
-
-        #notification.info {
-            background: #e4e6ff;
-            color: #414a91;
-            border: 1px solid #c3c7fa;
-        }
-
-        /* MAIN CONTENT */
-        .container {
-            width: 90%;
-            max-width: 1400px;
-            margin: 30px auto;
+        main {
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 0 18px;
         }
 
         section {
             background: white;
-            padding: 25px;
             margin-bottom: 25px;
-            border: 1px solid #efd5e8;
-            border-radius: 18px;
-            box-shadow: 0 3px 12px rgba(100, 60, 100, 0.06);
-            scroll-margin-top: 85px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(190, 145, 205, 0.12);
+            scroll-margin-top: 90px;
         }
 
-        h1, h2 {
-            color: #86559b;
+        section h2 {
+            color: #a477bd;
+            margin-bottom: 18px;
+            border-bottom: 2px solid #f3d9eb;
+            padding-bottom: 10px;
         }
 
-        h1 {
-            text-align: center;
-            font-size: 32px;
-        }
-
-        h2 {
-            margin-top: 0;
-        }
-
-        .home {
-            text-align: center;
-            padding: 45px 20px;
-            background: #f3e6fa;
-        }
-
-        .home p {
-            font-size: 17px;
-            line-height: 1.6;
-        }
-
-        /* FORM */
         .form-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
+            gap: 15px;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 7px;
         }
 
         label {
             font-weight: bold;
-            color: #624b70;
+            margin-bottom: 6px;
+            color: #805e91;
         }
 
         input, select {
             width: 100%;
             padding: 12px;
-            border: 1px solid #d8c2df;
+            border: 1px solid #e8cde3;
             border-radius: 8px;
-            font-size: 15px;
             outline: none;
+            font-size: 14px;
             background: #fffafd;
+            color: #51445a;
         }
 
         input:focus, select:focus {
-            border-color: #a66fba;
-            box-shadow: 0 0 4px rgba(166, 111, 186, 0.3);
+            border-color: #c49bd9;
+            box-shadow: 0 0 5px rgba(196, 155, 217, 0.3);
         }
 
         .button-group {
@@ -176,18 +124,16 @@
         }
 
         button {
-            padding: 11px 18px;
             border: none;
+            padding: 10px 16px;
             border-radius: 8px;
-            background: #a66fba;
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
             cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
         }
 
         button:hover {
-            background: #87529d;
+            opacity: 0.85;
         }
 
         button:disabled {
@@ -195,29 +141,46 @@
             cursor: not-allowed;
         }
 
-        .cancel-btn {
-            background: #777;
+        .btn-primary {
+            background: #bd95d6;
+            color: white;
         }
 
-        .delete-btn {
-            background: #d65b70;
+        .btn-secondary {
+            background: #f8dce9;
+            color: #805b91;
         }
 
-        .view-btn {
-            background: #6488c5;
+        .btn-danger {
+            background: #e99ab9;
+            color: white;
         }
 
-        .save-btn {
-            background: #39956c;
+        .btn-success {
+            background: #b6d9c2;
+            color: #41694f;
         }
 
-        /* SEARCH */
+        .btn-info {
+            background: #d4b9e8;
+            color: #624779;
+        }
+
+        .btn-small {
+            padding: 7px 10px;
+            margin: 2px;
+        }
+
         .search-box {
             margin-bottom: 18px;
         }
 
-        /* TABLE */
-        .table-wrapper {
+        .search-box input {
+            padding: 14px;
+            font-size: 15px;
+        }
+
+        .table-container {
             width: 100%;
             overflow-x: auto;
         }
@@ -228,65 +191,131 @@
             min-width: 700px;
         }
 
-        th, td {
-            border: 1px solid #ead9ed;
-            padding: 12px;
+        th {
+            background: #c09bd9;
+            color: white;
+            padding: 13px 10px;
             text-align: left;
         }
 
-        th {
-            background: #ead9f3;
-            color: #59416e;
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #f4e3ef;
+            font-size: 13px;
         }
 
-        tr:nth-child(even) {
-            background: #fff8fc;
-        }
-
-        td button {
-            margin: 3px;
+        tbody tr:hover {
+            background: #fff4fa;
         }
 
         .empty-message {
             text-align: center;
-            color: #888;
+            color: #9b8ba4;
             padding: 20px;
         }
 
-        .status-text {
-            color: #765d80;
-            margin-bottom: 15px;
+        .source-local {
+            color: #629b76;
+            font-weight: bold;
         }
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #765d80;
+        .source-partner {
+            color: #a477bd;
+            font-weight: bold;
+        }
+
+        /* POPUP NOTIFICATION */
+        .toast {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translate(-50%, 20px);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 300px;
+            max-width: calc(100% - 30px);
+            padding: 16px 22px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.18);
+            font-size: 14px;
+            font-weight: bold;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, 0);
+        }
+
+        .toast-icon {
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #4caf70;
+            color: white;
+        }
+
+        .toast.success-message {
+            background: #e7f5eb;
+            color: #35664b;
+        }
+
+        .toast.error-message {
+            background: #ffe5ed;
+            color: #963d5b;
+        }
+
+        .toast.error-message .toast-icon {
+            background: #dc5578;
+        }
+
+        .toast.info-message {
+            background: #f0e4fa;
+            color: #76518f;
+        }
+
+        .toast.info-message .toast-icon {
+            background: #b58bd0;
         }
 
         @media (max-width: 700px) {
+            header h1 {
+                font-size: 22px;
+            }
+
             nav {
-                gap: 15px;
+                gap: 3px;
             }
 
             nav a {
-                font-size: 14px;
-            }
-
-            .container {
-                width: 94%;
-            }
-
-            section {
-                padding: 18px;
+                font-size: 12px;
+                padding: 8px 10px;
             }
 
             .form-grid {
                 grid-template-columns: 1fr;
             }
 
-            h1 {
-                font-size: 25px;
+            section {
+                padding: 18px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .toast {
+                bottom: 15px;
+                min-width: 0;
+                width: calc(100% - 30px);
             }
         }
     </style>
@@ -294,799 +323,738 @@
 
 <body>
 
-    <!-- FLOATING NOTIFICATION -->
-    <div id="notification" role="status" aria-live="polite"></div>
+<header id="home">
+    <h1>Student Database System</h1>
+    <p>Developed by: Myranie Apura | BSIT</p>
+</header>
 
-    <!-- NAVIGATION -->
-    <nav>
-        <a href="#home">Home</a>
-        <a href="#student-information">Student Information</a>
-        <a href="#search-students">Search Students</a>
-        <a href="#my-records">My Records</a>
-        <a href="#partner-records">Partner Records</a>
-    </nav>
+<nav>
+    <a href="#home">Home</a>
+    <a href="#student-information">Student Information</a>
+    <a href="#search-students">Search Students</a>
+    <a href="#my-records">My Records</a>
+    <a href="#partner-records">Classmate</a>
+</nav>
 
-    <div class="container">
+<main>
 
-        <!-- HOME -->
-        <section class="home" id="home">
-            <h1>Student Database Management System</h1>
-            <p>
-                Welcome to the Student Database System.
-                Manage student information, search records,
-                update information, and retrieve records from
-                a partner database.
-            </p>
-            <p><strong>Developed by: Myranie Apura | BSIT</strong></p>
-        </section>
+    <!-- STUDENT INFORMATION -->
+    <section id="student-information">
+        <h2>Student Information</h2>
 
-        <!-- STUDENT INFORMATION -->
-        <section id="student-information">
-            <h2>Student Information</h2>
+        <form id="studentForm">
+            <div class="form-grid">
 
-            <form id="studentForm">
-                <div class="form-grid">
-
-                    <div class="form-group">
-                        <label for="student_id">Student ID</label>
-                        <input
-                            type="text"
-                            id="student_id"
-                            placeholder="Enter Student ID"
-                            required
-                        >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input
-                            type="text"
-                            id="name"
-                            placeholder="Enter Full Name"
-                            required
-                        >
-                    </div>
-
-                    <div class="form-group">
-                        <label for="program">Program</label>
-                        <select id="program" required>
-                            <option value="">Select Program</option>
-                            <option value="BSIT">BSIT</option>
-                            <option value="BSCS">BSCS</option>
-                            <option value="BSIS">BSIS</option>
-                            <option value="BSCpE">BSCpE</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="year">Year Level</label>
-                        <select id="year" required>
-                            <option value="">Select Year</option>
-                            <option value="1">1st Year</option>
-                            <option value="2">2nd Year</option>
-                            <option value="3">3rd Year</option>
-                            <option value="4">4th Year</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="section">Section</label>
-                        <input
-                            type="text"
-                            id="section"
-                            placeholder="Enter Section"
-                            required
-                        >
-                    </div>
-
+                <div class="form-group">
+                    <label for="student_id">Student ID</label>
+                    <input type="text" id="student_id"
+                           placeholder="Enter Student ID" required>
                 </div>
 
-                <div class="button-group">
-                    <button type="submit" id="submitBtn">
-                        Add Student
-                    </button>
-
-                    <button
-                        type="button"
-                        class="cancel-btn"
-                        id="cancelBtn"
-                        style="display:none;"
-                        onclick="cancelEdit()"
-                    >
-                        Cancel Edit
-                    </button>
+                <div class="form-group">
+                    <label for="name">Student Name</label>
+                    <input type="text" id="name"
+                           placeholder="Enter Student Name" required>
                 </div>
-            </form>
-        </section>
 
-        <!-- SEARCH STUDENTS -->
-        <section id="search-students">
-            <h2>Search Students</h2>
+                <div class="form-group">
+                    <label for="program">Program</label>
+                    <input type="text" id="program"
+                           placeholder="Example: BSIT" required>
+                </div>
 
-            <input
-                type="text"
-                id="searchInput"
-                class="search-box"
-                placeholder="Search by Student ID, Name, Program, Year, or Section..."
-            >
+                <div class="form-group">
+                    <label for="year">Year Level</label>
+                    <select id="year" required>
+                        <option value="">Select Year Level</option>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
 
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Student ID</th>
-                            <th>Name</th>
-                            <th>Program</th>
-                            <th>Year</th>
-                            <th>Section</th>
-                        </tr>
-                    </thead>
-                    <tbody id="searchTableBody">
-                        <tr>
-                            <td colspan="5" class="empty-message">
-                                Search for student records.
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="form-group">
+                    <label for="section">Section</label>
+                    <input type="text" id="section"
+                           placeholder="Example: A" required>
+                </div>
+
             </div>
-        </section>
-
-        <!-- MY RECORDS -->
-        <section id="my-records">
-            <h2>My Student Records</h2>
-            <p class="status-text">
-                View, edit, and delete student records stored in your database.
-            </p>
-
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Student ID</th>
-                            <th>Name</th>
-                            <th>Program</th>
-                            <th>Year</th>
-                            <th>Section</th>
-                            <th>Source</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="studentTableBody">
-                        <tr>
-                            <td colspan="7" class="empty-message">
-                                Loading student records...
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- PARTNER RECORDS -->
-        <section id="partner-records">
-            <h2>Partner Student Records</h2>
-
-            <p class="status-text">
-                Retrieve student records from your partner's Flask API
-                and save selected records to your own database.
-            </p>
 
             <div class="button-group">
-                <button type="button" id="retrieveBtn">
-                    Retrieve Partner Records
-                </button>
+                <button type="submit" class="btn-primary"
+                        id="submitButton">Add Student</button>
+
+                <button type="button" class="btn-secondary"
+                        onclick="resetForm()">Clear Form</button>
             </div>
+        </form>
+    </section>
 
-            <p id="partnerStatus" class="status-text">
-                Click the button to retrieve partner records.
-            </p>
+    <!-- SEARCH STUDENTS -->
+    <section id="search-students">
+        <h2>Search Students</h2>
 
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Student ID</th>
-                            <th>Name</th>
-                            <th>Program</th>
-                            <th>Year</th>
-                            <th>Section</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="partnerTableBody">
-                        <tr>
-                            <td colspan="6" class="empty-message">
-                                No partner records retrieved yet.
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+        <div class="search-box">
+            <input type="search" id="searchInput"
+                   placeholder="Search by Student ID, Name, Program, Year, or Section..."
+                   autocomplete="off">
+        </div>
 
-    </div>
+        <div class="button-group" style="margin-top:0; margin-bottom:18px;">
+            <button type="button" class="btn-info"
+                    onclick="viewSearchJSON()">
+                View JSON API
+            </button>
+        </div>
 
-    <footer>
-        Student Database Management System | BSIT
-    </footer>
-
-    <script>
-        const API_URL = "/api/students";
-
-        let students = [];
-        let partnerStudents = [];
-        let editingId = null;
-        let notificationTimer = null;
-
-        // =========================================
-        // AUTOMATIC TOP NOTIFICATION
-        // =========================================
-
-        function showMessage(message, type = "success") {
-            const notification = document.getElementById("notification");
-
-            clearTimeout(notificationTimer);
-
-            notification.textContent = message;
-            notification.className = "";
-            notification.classList.add(type);
-
-            // Show floating notification at the top of the screen.
-            requestAnimationFrame(() => {
-                notification.classList.add("show");
-            });
-
-            // Automatically hide after 4 seconds.
-            notificationTimer = setTimeout(() => {
-                notification.classList.remove("show");
-            }, 4000);
-        }
-
-        // =========================================
-        // NORMALIZE STUDENT DATA
-        // =========================================
-
-        function normalizeStudent(student) {
-            return {
-                id: student.id ?? student.record_id ?? null,
-                student_id: student.student_id ?? student.id_number ?? "",
-                name: student.name ?? student.student_name ?? "",
-                program: student.program ?? student.course ?? "",
-                year: student.year ?? student.year_level ?? "",
-                section: student.section ?? "",
-                source: student.source ?? "Local"
-            };
-        }
-
-        // =========================================
-        // LOAD MY STUDENT RECORDS
-        // =========================================
-
-        async function loadStudents() {
-            const tbody = document.getElementById("studentTableBody");
-
-            try {
-                const response = await fetch(API_URL);
-                const result = await response.json();
-
-                if (!response.ok) {
-                    throw new Error(result.message || "Unable to load records.");
-                }
-
-                let records = Array.isArray(result)
-                    ? result
-                    : (result.students || result.records || []);
-
-                students = records.map(normalizeStudent);
-
-                displayStudents(students);
-                displaySearchResults();
-
-            } catch (error) {
-                tbody.innerHTML = `
+        <div class="table-container">
+            <table>
+                <thead>
                     <tr>
-                        <td colspan="7" class="empty-message">
-                            Unable to load student records.
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Program</th>
+                        <th>Year</th>
+                        <th>Section</th>
+                        <th>Source</th>
+                    </tr>
+                </thead>
+
+                <tbody id="searchTableBody">
+                    <tr>
+                        <td colspan="6" class="empty-message">
+                            Search for a student to display records.
                         </td>
                     </tr>
-                `;
+                </tbody>
+            </table>
+        </div>
+    </section>
 
-                showMessage(error.message, "error");
-            }
-        }
+    <!-- MY RECORDS -->
+    <section id="my-records">
+        <h2>My Student Records</h2>
 
-        // =========================================
-        // DISPLAY MY STUDENT RECORDS
-        // =========================================
+        <div class="button-group" style="margin-bottom:15px;">
+            <button type="button" class="btn-info"
+                    onclick="loadStudents()">
+                Refresh Records
+            </button>
+        </div>
 
-        function displayStudents(data) {
-            const tbody = document.getElementById("studentTableBody");
-
-            if (!data.length) {
-                tbody.innerHTML = `
+        <div class="table-container">
+            <table>
+                <thead>
                     <tr>
-                        <td colspan="7" class="empty-message">
-                            No student records found.
+                        <th>ID</th>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Program</th>
+                        <th>Year</th>
+                        <th>Section</th>
+                        <th>Source</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="studentTableBody">
+                    <tr>
+                        <td colspan="8" class="empty-message">
+                            Loading records...
                         </td>
                     </tr>
-                `;
-                return;
-            }
+                </tbody>
+            </table>
+        </div>
+    </section>
 
-            tbody.innerHTML = data.map(student => `
+    <!-- CLASSMATE RECORDS -->
+    <section id="partner-records">
+        <h2>Classmate Student Records</h2>
+
+        <div class="button-group" style="margin-bottom:15px;">
+            <button type="button" class="btn-primary"
+                    onclick="loadPartnerRecords()">
+                Classmate
+            </button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Program</th>
+                        <th>Year</th>
+                        <th>Section</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="partnerTableBody">
+                    <tr>
+                        <td colspan="6" class="empty-message">
+                            Click Classmate to load student records.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</main>
+
+<!-- NOTIFICATION -->
+<div id="toast" class="toast" role="status" aria-live="polite">
+    <span id="toastIcon" class="toast-icon">✓</span>
+    <span id="toastText"></span>
+</div>
+
+<script>
+    let students = [];
+    let partnerStudents = [];
+    let searchResults = [];
+    let editingId = null;
+    let toastTimer = null;
+
+    /* API REQUEST */
+    async function apiRequest(url, options = {}) {
+        const response = await fetch(url, {
+            ...options,
+            headers: {
+                "Content-Type": "application/json",
+                ...(options.headers || {})
+            }
+        });
+
+        const responseText = await response.text();
+        let data = {};
+
+        try {
+            data = responseText ? JSON.parse(responseText) : {};
+        } catch {
+            throw new Error("The server returned an invalid response.");
+        }
+
+        if (!response.ok) {
+            throw new Error(
+                data.error || data.message ||
+                `Request failed: ${response.status}`
+            );
+        }
+
+        return data;
+    }
+
+    /* NOTIFICATIONS */
+    function showMessage(message, type = "success") {
+        const toast = document.getElementById("toast");
+        const icon = document.getElementById("toastIcon");
+        const text = document.getElementById("toastText");
+
+        clearTimeout(toastTimer);
+
+        toast.classList.remove(
+            "success-message", "error-message", "info-message", "show"
+        );
+
+        if (type === "error") {
+            toast.classList.add("error-message");
+            icon.textContent = "!";
+        } else if (type === "info") {
+            toast.classList.add("info-message");
+            icon.textContent = "i";
+        } else {
+            toast.classList.add("success-message");
+            icon.textContent = "✓";
+        }
+
+        text.textContent = message;
+
+        requestAnimationFrame(() => toast.classList.add("show"));
+
+        toastTimer = setTimeout(() => {
+            toast.classList.remove("show");
+        }, 4000);
+    }
+
+    /* ESCAPE HTML */
+    function escapeHTML(value) {
+        return String(value ?? "").replace(/[&<>"']/g, char => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+        })[char]);
+    }
+
+    /* NORMALIZE STUDENT DATA */
+    function normalizeStudent(student) {
+        return {
+            id: student.id ?? "",
+            student_id: student.student_id ??
+                student.student_code ?? student.id_number ?? "",
+            name: student.name ?? student.student_name ?? "",
+            program: student.program ?? student.course ?? "",
+            year: student.year ?? student.year_level ?? "",
+            section: student.section ?? "",
+            source: student.source ?? "Local"
+        };
+    }
+
+    function normalizeRecords(data) {
+        let records = data;
+
+        if (data && !Array.isArray(data)) {
+            records = data.students ?? data.records ?? [];
+        }
+
+        if (!Array.isArray(records)) return [];
+
+        return records
+            .filter(student => student && typeof student === "object")
+            .map(normalizeStudent);
+    }
+
+    /* LOAD LOCAL STUDENTS - WITH REFRESH NOTIFICATION */
+    async function loadStudents() {
+        const refreshButton = document.querySelector(
+            'button[onclick="loadStudents()"]'
+        );
+
+        if (refreshButton) {
+            refreshButton.disabled = true;
+            refreshButton.textContent = "Refreshing...";
+        }
+
+        try {
+            const data = await apiRequest("/api/students");
+            students = normalizeRecords(data);
+
+            displayStudents(students);
+            searchStudents();
+
+            showMessage(
+                "Student records refreshed successfully!",
+                "success"
+            );
+
+        } catch (error) {
+            document.getElementById("studentTableBody").innerHTML = `
                 <tr>
+                    <td colspan="8" class="empty-message">
+                        Unable to load student records.
+                    </td>
+                </tr>
+            `;
+
+            showMessage(error.message, "error");
+
+        } finally {
+            if (refreshButton) {
+                refreshButton.disabled = false;
+                refreshButton.textContent = "Refresh Records";
+            }
+        }
+    }
+
+    /* DISPLAY LOCAL STUDENTS */
+    function displayStudents(records) {
+        const tbody = document.getElementById("studentTableBody");
+
+        if (!records.length) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="8" class="empty-message">
+                        No student records found.
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        tbody.innerHTML = records.map(student => {
+            const source = student.source || "Local";
+            const sourceClass =
+                source.toLowerCase() === "partner"
+                    ? "source-partner" : "source-local";
+
+            return `
+                <tr>
+                    <td>${escapeHTML(student.id)}</td>
                     <td>${escapeHTML(student.student_id)}</td>
                     <td>${escapeHTML(student.name)}</td>
                     <td>${escapeHTML(student.program)}</td>
                     <td>${escapeHTML(student.year)}</td>
                     <td>${escapeHTML(student.section)}</td>
-                    <td>${escapeHTML(student.source)}</td>
+                    <td class="${sourceClass}">${escapeHTML(source)}</td>
                     <td>
-                        <button class="view-btn"
-                            onclick="viewStudent(${Number(student.id)})">
-                            View
-                        </button>
-
-                        <button
-                            onclick="editStudent(${Number(student.id)})">
-                            Edit
-                        </button>
-
-                        <button class="delete-btn"
-                            onclick="deleteStudent(${Number(student.id)})">
-                            Delete
-                        </button>
+                        <button class="btn-info btn-small"
+                            onclick="viewStudent(${Number(student.id)})">View</button>
+                        <button class="btn-primary btn-small"
+                            onclick="editStudent(${Number(student.id)})">Edit</button>
+                        <button class="btn-danger btn-small"
+                            onclick="deleteStudent(${Number(student.id)})">Delete</button>
                     </td>
                 </tr>
-            `).join("");
-        }
+            `;
+        }).join("");
+    }
 
-        // =========================================
-        // ADD OR UPDATE STUDENT
-        // =========================================
+    /* ADD OR UPDATE STUDENT */
+    document.getElementById("studentForm")
+        .addEventListener("submit", async function(event) {
+            event.preventDefault();
 
-        document.getElementById("studentForm")
-            .addEventListener("submit", async function(event) {
+            const student = {
+                student_id: document.getElementById("student_id").value.trim(),
+                name: document.getElementById("name").value.trim(),
+                program: document.getElementById("program").value.trim(),
+                year: document.getElementById("year").value,
+                section: document.getElementById("section").value.trim()
+            };
 
-                event.preventDefault();
-
-                const student = {
-                    student_id: document.getElementById("student_id").value.trim(),
-                    name: document.getElementById("name").value.trim(),
-                    program: document.getElementById("program").value,
-                    year: document.getElementById("year").value,
-                    section: document.getElementById("section").value.trim()
-                };
-
-                if (
-                    !student.student_id ||
-                    !student.name ||
-                    !student.program ||
-                    !student.year ||
-                    !student.section
-                ) {
-                    showMessage("Please complete all student information.", "error");
-                    return;
-                }
-
-                const submitBtn = document.getElementById("submitBtn");
-
-                submitBtn.disabled = true;
-
-                try {
-                    let response;
-
-                    if (editingId !== null) {
-                        response = await fetch(`${API_URL}/${editingId}`, {
-                            method: "PUT",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify(student)
-                        });
-                    } else {
-                        response = await fetch(API_URL, {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json"
-                            },
-                            body: JSON.stringify(student)
-                        });
-                    }
-
-                    const result = await response.json();
-
-                    if (!response.ok) {
-                        throw new Error(
-                            result.message || result.error || "Unable to save student."
-                        );
-                    }
-
-                    if (editingId !== null) {
-                        showMessage("Student information successfully updated!");
-                    } else {
-                        showMessage("Student successfully added!");
-                    }
-
-                    resetForm();
-                    await loadStudents();
-
-                } catch (error) {
-                    showMessage(error.message, "error");
-                } finally {
-                    submitBtn.disabled = false;
-                }
-            });
-
-        // =========================================
-        // VIEW STUDENT
-        // =========================================
-
-        function viewStudent(id) {
-            const student = students.find(item => Number(item.id) === id);
-
-            if (!student) {
-                showMessage("Student record not found.", "error");
+            if (Object.values(student).some(value => !value)) {
+                showMessage("Please complete all student fields.", "error");
                 return;
             }
 
-            alert(
-                "STUDENT INFORMATION\n\n" +
-                "Student ID: " + student.student_id + "\n" +
-                "Name: " + student.name + "\n" +
-                "Program: " + student.program + "\n" +
-                "Year: " + student.year + "\n" +
-                "Section: " + student.section + "\n" +
-                "Source: " + student.source
-            );
-        }
-
-        // =========================================
-        // EDIT STUDENT
-        // =========================================
-
-        function editStudent(id) {
-            const student = students.find(item => Number(item.id) === id);
-
-            if (!student) {
-                showMessage("Student record not found.", "error");
-                return;
-            }
-
-            editingId = id;
-
-            document.getElementById("student_id").value = student.student_id;
-            document.getElementById("name").value = student.name;
-            document.getElementById("program").value = student.program;
-            document.getElementById("year").value = student.year;
-            document.getElementById("section").value = student.section;
-
-            document.getElementById("submitBtn").textContent = "Update Student";
-            document.getElementById("cancelBtn").style.display = "inline-block";
-
-            document.getElementById("student-information")
-                .scrollIntoView({ behavior: "smooth" });
-
-            showMessage("Student information loaded. You can now edit the record.", "info");
-        }
-
-        // =========================================
-        // CANCEL EDIT
-        // =========================================
-
-        function cancelEdit() {
-            resetForm();
-            showMessage("Edit cancelled.", "info");
-        }
-
-        function resetForm() {
-            editingId = null;
-
-            document.getElementById("studentForm").reset();
-            document.getElementById("submitBtn").textContent = "Add Student";
-            document.getElementById("cancelBtn").style.display = "none";
-        }
-
-        // =========================================
-        // DELETE STUDENT
-        // =========================================
-
-        async function deleteStudent(id) {
-            const confirmed = confirm(
-                "Are you sure you want to delete this student record?"
-            );
-
-            if (!confirmed) return;
+            const button = document.getElementById("submitButton");
+            button.disabled = true;
 
             try {
-                const response = await fetch(`${API_URL}/${id}`, {
-                    method: "DELETE"
-                });
+                if (editingId !== null) {
+                    await apiRequest(`/api/students/${editingId}`, {
+                        method: "PUT",
+                        body: JSON.stringify(student)
+                    });
 
-                const result = await response.json();
+                    showMessage("Student record updated successfully!");
+                } else {
+                    await apiRequest("/api/students", {
+                        method: "POST",
+                        body: JSON.stringify(student)
+                    });
 
-                if (!response.ok) {
-                    throw new Error(
-                        result.message || result.error || "Unable to delete student."
-                    );
+                    showMessage("Student record added successfully!");
                 }
 
-                showMessage("Student record successfully deleted!");
+                resetForm();
                 await loadStudents();
 
             } catch (error) {
                 showMessage(error.message, "error");
-            }
-        }
-
-        // =========================================
-        // SEARCH STUDENTS
-        // =========================================
-
-        document.getElementById("searchInput")
-            .addEventListener("input", displaySearchResults);
-
-        function displaySearchResults() {
-            const searchValue = document.getElementById("searchInput")
-                .value.toLowerCase().trim();
-
-            const filtered = students.filter(student => {
-                return [
-                    student.student_id,
-                    student.name,
-                    student.program,
-                    student.year,
-                    student.section
-                ].some(value =>
-                    String(value).toLowerCase().includes(searchValue)
-                );
-            });
-
-            const tbody = document.getElementById("searchTableBody");
-
-            if (!filtered.length) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="5" class="empty-message">
-                            No matching student records found.
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-
-            tbody.innerHTML = filtered.map(student => `
-                <tr>
-                    <td>${escapeHTML(student.student_id)}</td>
-                    <td>${escapeHTML(student.name)}</td>
-                    <td>${escapeHTML(student.program)}</td>
-                    <td>${escapeHTML(student.year)}</td>
-                    <td>${escapeHTML(student.section)}</td>
-                </tr>
-            `).join("");
-        }
-
-        // =========================================
-        // RETRIEVE PARTNER RECORDS
-        // =========================================
-
-        document.getElementById("retrieveBtn")
-            .addEventListener("click", retrievePartnerRecords);
-
-        async function retrievePartnerRecords() {
-            const button = document.getElementById("retrieveBtn");
-            const status = document.getElementById("partnerStatus");
-            const tbody = document.getElementById("partnerTableBody");
-
-            // Keep the current screen position.
-            const previousScrollY = window.scrollY;
-
-            button.disabled = true;
-            button.textContent = "Retrieving...";
-            status.textContent = "Connecting to partner API...";
-
-            try {
-                const response = await fetch("/partner-records");
-                const result = await response.json();
-
-                if (!response.ok || result.success === false) {
-                    throw new Error(
-                        result.message || result.error ||
-                        "Unable to retrieve partner records."
-                    );
-                }
-
-                const records = Array.isArray(result)
-                    ? result
-                    : (result.records || result.students || []);
-
-                partnerStudents = records.map(normalizeStudent);
-
-                displayPartnerStudents();
-
-                status.textContent =
-                    `Successfully retrieved ${partnerStudents.length} partner record(s).`;
-
-                showMessage(
-                    `Successfully retrieved ${partnerStudents.length} partner record(s)!`,
-                    "success"
-                );
-
-            } catch (error) {
-                status.textContent = "Unable to retrieve partner records.";
-
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6" class="empty-message">
-                            ${escapeHTML(error.message)}
-                        </td>
-                    </tr>
-                `;
-
-                showMessage(error.message, "error");
-
             } finally {
                 button.disabled = false;
-                button.textContent = "Retrieve Partner Records";
-
-                // Restore the user's previous position.
-                requestAnimationFrame(() => {
-                    window.scrollTo({
-                        top: previousScrollY,
-                        behavior: "instant"
-                    });
-                });
             }
+        });
+
+    /* EDIT STUDENT */
+    function editStudent(id) {
+        const student = students.find(
+            item => Number(item.id) === Number(id)
+        );
+
+        if (!student) {
+            showMessage("Student record not found.", "error");
+            return;
         }
 
-        // =========================================
-        // DISPLAY PARTNER RECORDS
-        // =========================================
+        editingId = id;
 
-        function displayPartnerStudents() {
-            const tbody = document.getElementById("partnerTableBody");
+        document.getElementById("student_id").value = student.student_id;
+        document.getElementById("name").value = student.name;
+        document.getElementById("program").value = student.program;
+        document.getElementById("year").value = String(student.year);
+        document.getElementById("section").value = student.section;
 
-            if (!partnerStudents.length) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6" class="empty-message">
-                            No partner records available.
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
+        document.getElementById("submitButton").textContent = "Update Student";
 
-            tbody.innerHTML = partnerStudents.map((student, index) => `
+        document.getElementById("student-information")
+            .scrollIntoView({ behavior: "smooth" });
+
+        showMessage("Student record loaded for editing.", "info");
+    }
+
+    /* VIEW STUDENT */
+    function viewStudent(id) {
+        const student = students.find(
+            item => Number(item.id) === Number(id)
+        );
+
+        if (!student) {
+            showMessage("Student record not found.", "error");
+            return;
+        }
+
+        alert(
+            "STUDENT INFORMATION\n\n" +
+            "Student ID: " + student.student_id + "\n" +
+            "Name: " + student.name + "\n" +
+            "Program: " + student.program + "\n" +
+            "Year: " + student.year + "\n" +
+            "Section: " + student.section + "\n" +
+            "Source: " + student.source
+        );
+    }
+
+    /* DELETE STUDENT */
+    async function deleteStudent(id) {
+        if (!confirm("Are you sure you want to delete this student record?")) {
+            return;
+        }
+
+        try {
+            await apiRequest(`/api/students/${id}`, {
+                method: "DELETE"
+            });
+
+            showMessage("Student record deleted successfully!");
+            await loadStudents();
+
+        } catch (error) {
+            showMessage(error.message, "error");
+        }
+    }
+
+    /* RESET FORM */
+    function resetForm() {
+        document.getElementById("studentForm").reset();
+        editingId = null;
+        document.getElementById("submitButton").textContent = "Add Student";
+    }
+
+    /* SEARCH STUDENTS */
+    function searchStudents() {
+        const searchValue = document
+            .getElementById("searchInput")
+            .value
+            .toLowerCase()
+            .trim();
+
+        const tbody = document.getElementById("searchTableBody");
+
+        if (searchValue === "") {
+            searchResults = [];
+
+            tbody.innerHTML = `
                 <tr>
-                    <td>${escapeHTML(student.student_id)}</td>
-                    <td>${escapeHTML(student.name)}</td>
-                    <td>${escapeHTML(student.program)}</td>
-                    <td>${escapeHTML(student.year)}</td>
-                    <td>${escapeHTML(student.section)}</td>
-                    <td>
-                        <button class="view-btn"
-                            onclick="viewPartnerStudent(${index})">
-                            View
-                        </button>
-
-                        <button class="save-btn"
-                            onclick="savePartnerStudent(${index}, this)">
-                            Save to My Database
-                        </button>
+                    <td colspan="6" class="empty-message">
+                        Search for a student to display records.
                     </td>
                 </tr>
-            `).join("");
+            `;
+            return;
         }
 
-        // =========================================
-        // VIEW PARTNER STUDENT
-        // =========================================
-
-        function viewPartnerStudent(index) {
-            const student = partnerStudents[index];
-
-            if (!student) return;
-
-            alert(
-                "PARTNER STUDENT INFORMATION\n\n" +
-                "Student ID: " + student.student_id + "\n" +
-                "Name: " + student.name + "\n" +
-                "Program: " + student.program + "\n" +
-                "Year: " + student.year + "\n" +
-                "Section: " + student.section
+        searchResults = students.filter(student => {
+            return [
+                student.student_id,
+                student.name,
+                student.program,
+                student.year,
+                student.section,
+                student.source
+            ].some(value =>
+                String(value || "")
+                    .toLowerCase()
+                    .includes(searchValue)
             );
-        }
-
-        // =========================================
-        // SAVE PARTNER RECORD TO MY DATABASE
-        // =========================================
-
-        async function savePartnerStudent(index, button) {
-            const student = partnerStudents[index];
-
-            if (!student) {
-                showMessage("Partner student record not found.", "error");
-                return;
-            }
-
-            const confirmed = confirm(
-                "Save this partner student record to your database?\n\n" +
-                student.name + " (" + student.student_id + ")"
-            );
-
-            if (!confirmed) return;
-
-            button.disabled = true;
-            button.textContent = "Saving...";
-
-            try {
-                const response = await fetch("/save-partner-record", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        student_id: student.student_id,
-                        name: student.name,
-                        program: student.program,
-                        year: student.year,
-                        section: student.section,
-                        source: "Partner"
-                    })
-                });
-
-                const result = await response.json();
-
-                if (!response.ok || result.success === false) {
-                    throw new Error(
-                        result.message || result.error ||
-                        "Unable to save partner record."
-                    );
-                }
-
-                showMessage(
-                    "Partner student record successfully saved to your database!"
-                );
-
-                await loadStudents();
-
-                button.textContent = "Saved";
-
-            } catch (error) {
-                showMessage(error.message, "error");
-                button.disabled = false;
-                button.textContent = "Save to My Database";
-            }
-        }
-
-        // =========================================
-        // HTML ESCAPE
-        // =========================================
-
-        function escapeHTML(value) {
-            return String(value ?? "").replace(/[&<>"']/g, character => {
-                const entities = {
-                    "&": "&amp;",
-                    "<": "&lt;",
-                    ">": "&gt;",
-                    '"': "&quot;",
-                    "'": "&#039;"
-                };
-
-                return entities[character];
-            });
-        }
-
-        // =========================================
-        // INITIAL LOAD
-        // =========================================
-
-        document.addEventListener("DOMContentLoaded", () => {
-            loadStudents();
         });
-    </script>
+
+        displaySearchResults(searchResults);
+    }
+
+    /* DISPLAY SEARCH RESULTS */
+    function displaySearchResults(records) {
+        const tbody = document.getElementById("searchTableBody");
+
+        if (records.length === 0) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="empty-message">
+                        No matching student records found.
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        tbody.innerHTML = records.map(student => `
+            <tr>
+                <td>${escapeHTML(student.student_id)}</td>
+                <td>${escapeHTML(student.name)}</td>
+                <td>${escapeHTML(student.program)}</td>
+                <td>${escapeHTML(student.year)}</td>
+                <td>${escapeHTML(student.section)}</td>
+                <td>${escapeHTML(student.source || "Local")}</td>
+            </tr>
+        `).join("");
+    }
+
+    /* VIEW SEARCH RESULTS AS JSON */
+    function viewSearchJSON() {
+        if (searchResults.length === 0) {
+            showMessage("No matching student records to display.", "info");
+            return;
+        }
+
+        const jsonData = JSON.stringify(searchResults, null, 4);
+
+        const blob = new Blob([jsonData], {
+            type: "application/json"
+        });
+
+        const jsonURL = URL.createObjectURL(blob);
+        const newTab = window.open(jsonURL, "_blank");
+
+        if (!newTab) {
+            URL.revokeObjectURL(jsonURL);
+            showMessage("Please allow pop-ups to view JSON.", "error");
+            return;
+        }
+
+        showMessage("Search results opened as JSON!");
+
+        setTimeout(() => {
+            URL.revokeObjectURL(jsonURL);
+        }, 60000);
+    }
+
+    /* SEARCH AS YOU TYPE */
+    document.getElementById("searchInput")
+        .addEventListener("input", searchStudents);
+
+    /* LOAD CLASSMATE RECORDS */
+    async function loadPartnerRecords() {
+        const tbody = document.getElementById("partnerTableBody");
+
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="6" class="empty-message">
+                    Loading classmate records...
+                </td>
+            </tr>
+        `;
+
+        try {
+            const data = await apiRequest("/partner-records");
+            partnerStudents = normalizeRecords(data);
+
+            displayPartnerRecords(partnerStudents);
+
+            if (partnerStudents.length) {
+                showMessage("Classmate records retrieved successfully!");
+            } else {
+                showMessage("No classmate records were found.", "info");
+            }
+
+        } catch (error) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="empty-message">
+                        Unable to retrieve classmate records.
+                    </td>
+                </tr>
+            `;
+
+            showMessage(error.message, "error");
+        }
+    }
+
+    /* DISPLAY CLASSMATE RECORDS */
+    function displayPartnerRecords(records) {
+        const tbody = document.getElementById("partnerTableBody");
+
+        if (!records.length) {
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="6" class="empty-message">
+                        No classmate records available.
+                    </td>
+                </tr>
+            `;
+            return;
+        }
+
+        tbody.innerHTML = records.map((student, index) => `
+            <tr>
+                <td>${escapeHTML(student.student_id)}</td>
+                <td>${escapeHTML(student.name)}</td>
+                <td>${escapeHTML(student.program)}</td>
+                <td>${escapeHTML(student.year)}</td>
+                <td>${escapeHTML(student.section)}</td>
+                <td>
+                    <button class="btn-info btn-small"
+                        onclick="viewPartnerStudent(${index})">View</button>
+                    <button class="btn-success btn-small"
+                        onclick="savePartnerStudent(${index})">
+                        Save to My Database
+                    </button>
+                </td>
+            </tr>
+        `).join("");
+    }
+
+    /* VIEW CLASSMATE STUDENT */
+    function viewPartnerStudent(index) {
+        const student = partnerStudents[index];
+
+        if (!student) {
+            showMessage("Classmate student record not found.", "error");
+            return;
+        }
+
+        alert(
+            "CLASSMATE STUDENT INFORMATION\n\n" +
+            "Student ID: " + student.student_id + "\n" +
+            "Name: " + student.name + "\n" +
+            "Program: " + student.program + "\n" +
+            "Year: " + student.year + "\n" +
+            "Section: " + student.section
+        );
+    }
+
+    /* SAVE CLASSMATE STUDENT */
+    async function savePartnerStudent(index) {
+        const student = partnerStudents[index];
+
+        if (!student) {
+            showMessage("Classmate student record not found.", "error");
+            return;
+        }
+
+        const record = {
+            student_id: student.student_id,
+            name: student.name,
+            program: student.program,
+            year: student.year,
+            section: student.section
+        };
+
+        try {
+            await apiRequest("/save-partner-record", {
+                method: "POST",
+                body: JSON.stringify(record)
+            });
+
+            showMessage("Classmate student saved to your database!");
+            await loadStudents();
+
+        } catch (error) {
+            showMessage(error.message, "error");
+        }
+    }
+
+    /* INITIAL PAGE LOAD */
+    document.addEventListener("DOMContentLoaded", function() {
+        loadStudents();
+    });
+</script>
 
 </body>
 </html>
