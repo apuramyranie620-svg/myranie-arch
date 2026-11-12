@@ -103,6 +103,15 @@ def home():
 
 
 # ==========================================
+# INTEGRATION DASHBOARD
+# ==========================================
+
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
+
+
+# ==========================================
 # GET ALL STUDENTS
 # ==========================================
 
@@ -292,7 +301,7 @@ def get_partner_records():
 
 
 # ==========================================
-# SAVE PARTNER RECORD
+# SAVE PARTNER RECORD TO LOCAL DATABASE
 # ==========================================
 
 @app.route("/save-partner-record", methods=["POST"])
