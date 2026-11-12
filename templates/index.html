@@ -208,11 +208,21 @@
             font-size: 12px;
         }
 
+        /* NOTIFICATION */
+
         .status {
-            padding: 12px;
-            margin-bottom: 15px;
-            border-radius: 8px;
+            padding: 14px 20px;
+            border-radius: 10px;
             display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(90%, 550px);
+            z-index: 1000;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(100, 60, 100, 0.2);
         }
 
         .status.show {
@@ -220,18 +230,21 @@
         }
 
         .status.success-message {
-            background: #e4f4e9;
-            color: #35664b;
+            background: #d8f3df;
+            color: #28643d;
+            border: 1px solid #a8ddb7;
         }
 
         .status.error-message {
             background: #ffe5ed;
             color: #963d5b;
+            border: 1px solid #f3bdcd;
         }
 
         .status.info-message {
             background: #eee5fa;
             color: #684b8c;
+            border: 1px solid #d9c5ed;
         }
 
         .empty {
@@ -289,7 +302,8 @@
     <div class="container">
 
         <!-- NOTIFICATION -->
-        <div id="message" class="status" role="status" aria-live="polite"></div>
+        <div id="message" class="status"
+             role="status" aria-live="polite"></div>
 
         <!-- STUDENT INFORMATION -->
         <section class="card" id="student-form">
@@ -343,7 +357,8 @@
                         Add Student
                     </button>
 
-                    <button type="button" class="secondary" onclick="cancelEdit()">
+                    <button type="button" class="secondary"
+                            onclick="cancelEdit()">
                         Clear Form
                     </button>
 
@@ -401,7 +416,8 @@
             <h2>My Student Records</h2>
 
             <div class="buttons">
-                <button type="button" class="info" onclick="loadStudents()">
+                <button type="button" class="info"
+                        onclick="loadStudents()">
                     Refresh My Records
                 </button>
             </div>
@@ -445,7 +461,6 @@
                 and save selected records to your own database.
             </p>
 
-            <!-- Only the Retrieve button remains -->
             <div class="buttons">
 
                 <button type="button" class="primary"
@@ -500,16 +515,18 @@
         let allStudents = [];
         let partnerStudents = [];
         let editingStudentId = null;
+        let notificationTimer = null;
 
 
         // ==========================================
-        // NOTIFICATION
-        // Does not scroll to Home.
+        // NOTIFICATION FUNCTION
         // ==========================================
 
         function showMessage(message, type = "success") {
 
             const messageBox = document.getElementById("message");
+
+            clearTimeout(notificationTimer);
 
             messageBox.textContent = message;
             messageBox.className = "status show";
@@ -521,6 +538,10 @@
             } else {
                 messageBox.classList.add("info-message");
             }
+
+            notificationTimer = setTimeout(() => {
+                messageBox.classList.remove("show");
+            }, 4000);
         }
 
 
@@ -575,7 +596,10 @@
                     !student.year ||
                     !student.section
                 ) {
-                    showMessage("Please complete all student fields.", "error");
+                    showMessage(
+                        "Please complete all student fields.",
+                        "error"
+                    );
                     return;
                 }
 
@@ -592,12 +616,16 @@
                         body: JSON.stringify(student)
                     });
 
-                    showMessage(
-                        result.message || "Student record saved successfully!"
-                    );
-
                     cancelEdit();
+
                     await loadStudents();
+
+                    showMessage(
+                        result.message ||
+                        (isUpdating
+                            ? "Student record updated successfully!"
+                            : "Student record added successfully!")
+                    );
 
                 } catch (error) {
                     showMessage(error.message, "error");
@@ -635,6 +663,8 @@
                 displayStudents();
                 searchStudents();
 
+                return true;
+
             } catch (error) {
 
                 tableBody.innerHTML = `
@@ -646,6 +676,8 @@
                 `;
 
                 showMessage(error.message, "error");
+
+                return false;
             }
         }
 
@@ -749,11 +781,20 @@
 
             editingStudentId = Number(student.id);
 
-            document.getElementById("student_id").value = student.student_id;
-            document.getElementById("name").value = student.name;
-            document.getElementById("program").value = student.program;
-            document.getElementById("year").value = String(student.year);
-            document.getElementById("section").value = student.section;
+            document.getElementById("student_id").value =
+                student.student_id;
+
+            document.getElementById("name").value =
+                student.name;
+
+            document.getElementById("program").value =
+                student.program;
+
+            document.getElementById("year").value =
+                String(student.year);
+
+            document.getElementById("section").value =
+                student.section;
 
             document.getElementById("form-heading").textContent =
                 "Update Student Information";
@@ -823,11 +864,11 @@
                     cancelEdit();
                 }
 
+                await loadStudents();
+
                 showMessage(
                     result.message || "Student deleted successfully!"
                 );
-
-                await loadStudents();
 
             } catch (error) {
                 showMessage(error.message, "error");
@@ -896,7 +937,7 @@
 
         // ==========================================
         // RETRIEVE PARTNER RECORDS
-        // STAYS IN PARTNER RECORDS SECTION
+        // PRESERVE CURRENT SCROLL POSITION
         // ==========================================
 
         async function loadPartnerRecords() {
@@ -920,7 +961,8 @@
             try {
 
                 const response = await fetch("/partner-records");
-                const result = await response.json();
+
+                const result = await response.json().catch(() => ({}));
 
                 if (!response.ok || !result.success) {
                     throw new Error(
@@ -955,11 +997,9 @@
                 retrieveButton.disabled = false;
                 retrieveButton.textContent = "Retrieve Partner Records";
 
-                requestAnimationFrame(() => {
-                    window.scrollTo({
-                        top: previousScrollY,
-                        behavior: "instant"
-                    });
+                window.scrollTo({
+                    top: previousScrollY,
+                    behavior: "auto"
                 });
             }
         }
@@ -1040,7 +1080,7 @@
 
 
         // ==========================================
-        // SAVE PARTNER RECORD TO MY DATABASE
+        // SAVE CLASSMATE RECORD TO MY DATABASE
         // ==========================================
 
         async function savePartnerStudent(index) {
@@ -1052,7 +1092,9 @@
                 return;
             }
 
-            if (!confirm(`Save ${student.name}'s record to your database?`)) {
+            if (!confirm(
+                `Add ${student.name}'s record to your student database?`
+            )) {
                 return;
             }
 
@@ -1072,11 +1114,23 @@
                     }
                 );
 
-                showMessage(
-                    result.message || "Partner record saved successfully!"
-                );
+                // Refresh local records so the classmate appears
+                // in My Student Records.
 
-                await loadStudents();
+                const refreshed = await loadStudents();
+
+                if (!refreshed) {
+                    showMessage(
+                        "The record was saved, but the table could not refresh. Please click Refresh My Records.",
+                        "info"
+                    );
+                    return;
+                }
+
+                showMessage(
+                    result.message ||
+                    `${student.name}'s record was successfully added to your database!`
+                );
 
             } catch (error) {
                 showMessage(error.message, "error");
